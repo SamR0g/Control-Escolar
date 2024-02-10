@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ecf0f1;
+}
+
+#contenedor {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#informacion-alumno {
+    text-align: left;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+#informacion-alumno h2 {
+    color: #3498db;
+}
+
+#informacion-alumno p {
+    margin: 5px 0;
+}
+
+#foto-alumno {
+    text-align: center;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+#foto-alumno img {
+    width: 150px;
+    border-radius: 50%;
+}
+
+#horario {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 1fr);
+    gap: 10px;
+}
+
+.materia {
+    grid-column: 1;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.dia-semana {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.clase {
+    background-color: #ecf0f1;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}

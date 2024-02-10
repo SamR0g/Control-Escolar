@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/ListadoAlumnos.css">
+    <title>Concentrado de Alumnos</title>
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+    <div class="alumno">
+        <h2>Concentrado de Alumnos</h2>
+
+        <label for="grupoSelect">Seleccionar Grupo:</label>
+        <select id="grupoSelect" onchange="cargarDatos()">
+            <option value="A">Grupo A</option>
+            <option value="B">Grupo B</option>
+            <!-- Agrega más opciones según tus grupos -->
+        </select>
+
+        <table class="datos" id="datosTabla">
+            <tr>
+                <th>Nombre</th>
+                <th>Matrícula</th>
+                <th>Grupo</th>
+                <th>Semestre</th>
+                <th>Turno</th>
+            </tr>
+            <!-- Los datos se cargarán dinámicamente aquí -->
+        </table>
+
+        <button onclick="generatePDF()">Generar PDF</button>
+        <button onclick="generateExcel()">Generar Excel</button>
+    </div>
+
+    <script src="../js/ListadoAlumnos.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    #bienvenida {
+      background-color: #3498db;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #menu-container {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+    }
+
+    #circulo-menu {
+      width: 80px;
+      height: 80px;
+      background-color: #3498db;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+      overflow: hidden; /* Asegura que la imagen no se desborde del círculo */
+    }
+
+    #circulo-menu img {
+      width: 100%;
+      height: auto;
+    }
+
+    #menu {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: absolute;
+      top: 100px; /* Ajusta según sea necesario para la separación deseada */
+      left: 0;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Agregada línea para transición del fondo y sombra */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agregada línea para sombra sutil */
+      border-radius: 8px; /* Agregada línea para bordes redondeados */
+      overflow: hidden; /* Oculta el contenido del menú inicialmente */
+      max-height: 0; /* Altura máxima inicialmente 0 */
+      transition: max-height 0.3s ease; /* Agregada línea para animar la altura */
+      width: 200px; /* Ancho del menú, ajusta según sea necesario */
+    }
+
+    #menu.active {
+      background-color: #34495e; /* Color de fondo cuando está activo */
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Sombra ligeramente más pronunciada cuando está activo */
+      max-height: 400px; /* Altura máxima cuando está activo, ajusta según sea necesario */
+    }
+
+    #menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease, color 0.3s ease;
+      border-bottom: 1px solid #fff; /* Línea divisoria entre elementos del menú */
+    }
+
+    #menu.active a {
+      opacity: 1;
+    }
+
+    #menu a:last-child {
+      border-bottom: none; /* Elimina la línea divisoria del último elemento del menú */
+    }
+
+    #contenido {
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+  <title>Panel Personal</title>
+</head>
+<body>
+
+  <div id="bienvenida">
+    <h1>Bienvenido Personal</h1>
+  </div>
+
+  <div id="menu-container">
+    <div id="circulo-menu" onclick="toggleMenu()">
+      <img src="../Imagenes/LogoBycenj.png" alt="Menú">
+    </div>
+    <div id="menu">
+      <a href="PrincipalPersonal.html"><div>Inicio</div></a>
+      <a href="../Propuesta2.html"><div>Captura Calificacion</div></a>
+      <a href="../Modulos Alumno/Boleta.html"><div>Genera Boleta</div></a>
+      <a href="constancia.html"><div>Genera Constancia</div></a>
+      <a href="ListadoAlumno.html"><div>Consulta Grupos</div></a>
+    </div>
+  </div>
+
+  <div id="contenido">
+    <p>Información del alumno</p>
+    <!-- Tu contenido adicional va aquí -->
+  </div>
+
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      menu.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
