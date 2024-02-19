@@ -43,9 +43,7 @@ $user_id = $_SESSION['Matricula'];
       <a href="PanelJefe.html"><div>Inicio</div></a>
       <a href="./CrearCuenta.html"><div>Crear Cuenta</div></a>
       <a href="CrearHorario.php"><div>Crear Horario</div></a>
-      <a href="#"><div>Bajas</div></a>
-      <a href="CRUD.html"><div>Altas</div></a>
-      <a href="#"><div>Editar info</div></a>
+      <a href="CRUD.html"><div>Altas y bajas</div></a>
       <a href="ListadoGeneralAlumno.html"><div>Consulta Matricula</div></a>
       <a href="../php/CerrarSesionJefe.php"><div>Cerrar Sesion</div></a>
     </div>
