@@ -5,7 +5,7 @@ if (!isset($_SESSION['Matricula'])) {
     echo '
     <script>
     alert("Por favor debes iniciar sesión");
-    window.location="PanelJefe.php";
+    window.location="PrincipalPersonal.php";
     </script>
     ';
 
@@ -26,7 +26,7 @@ $user_id = $_SESSION['Matricula'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/PrincipalJefe.css"> <!-- Asegúrate de incluir tus estilos aquí -->
     
-    <title>Panel Coordinador de área</title>
+    <title>Panel Personal</title>
 </head>
 
 <body>
@@ -35,17 +35,13 @@ $user_id = $_SESSION['Matricula'];
         <h1>Bienvenido</h1>
     </div>
 
-    <div id="menu-container">
-    <div id="circulo-menu" onclick="toggleMenu()">
-      <img src="../Imagenes/LogoBycenj.png" alt="Menú">
-    </div>
     <div id="menu">
-      <a href="PanelJefe.html"><div>Inicio</div></a>
-      <a href="./CrearCuenta.html"><div>Crear Cuenta</div></a>
-      <a href="CrearHorario.php"><div>Crear Horario</div></a>
-      <a href="CRUD.html"><div>Altas y bajas</div></a>
-      <a href="ListadoGeneralAlumno.html"><div>Consulta Matricula</div></a>
-      <a href="../php/CerrarSesionJefe.php"><div>Cerrar Sesion</div></a>
+      <a href="PrincipalPersonal.html"><div>Inicio</div></a>
+      <a href="../Propuesta2.html"><div>Captura Calificacion</div></a>
+      <a href="../Modulos Alumno/Boleta.html"><div>Genera Boleta</div></a>
+      <a href="constancia.html"><div>Genera Constancia</div></a>
+      <a href="ListadoAlumno.html"><div>Consulta Grupos</div></a>
+      <a href="../php/CerrarSesionPersonal.php"><div>Cerrar Sesion</div></a>
     </div>
   </div>
 
