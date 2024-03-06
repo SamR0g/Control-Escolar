@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boleta de Calificaciones</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    h1, h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .total {
+        font-weight: bold;
+    }
+
+    .percentage-column {
+        background-color: #f2f2f2;
+    }
+
+    .percentage-column span {
+        display: block;
+        text-align: center;
+    }
+
+    .logo {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .logo img {
+        width: 100%;
+        height: auto;
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .button-container button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .button-container button:last-child {
+        margin-right: 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="printable">
+    <div class="logo">
+        <img src="ruta/al/logo.png" alt="Logo de la escuela">
+    </div>
+    <h1>Boleta de Calificaciones</h1>
+    <h2>Información del Alumno</h2>
+    <p><strong>Nombre:</strong> Juan Pérez</p>
+    <p><strong>Grado:</strong> 8vo</p>
+    <p><strong>Grupo:</strong> A</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Materia</th>
+                <th>Calificación</th>
+                <th class="percentage-column">Porcentaje de Asistencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Matemáticas</td>
+                <td>95</td>
+                <td class="percentage-column"><span>90%</span></td>
+            </tr>
+            <tr>
+                <td>Ciencias</td>
+                <td>88</td>
+                <td class="percentage-column"><span>85%</span></td>
+            </tr>
+            <tr>
+                <td>Lenguaje</td>
+                <td>92</td>
+                <td class="percentage-column"><span>95%</span></td>
+            </tr>
+            <tr>
+                <td>Historia</td>
+                <td>85</td>
+                <td class="percentage-column"><span>80%</span></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="total">Total</td>
+                <td class="total">90</td>
+                <td class="percentage-column total"><span>87.5%</span></td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="button-container">
+        <button id="download-btn">Descargar</button>
+        <button id="print-btn">Imprimir</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('download-btn').addEventListener('click', function() {
+        var container = document.getElementById('printable');
+        var clonedContainer = container.cloneNode(true);
+        var head = document.head.cloneNode(true);
+
+        var newWindow = window.open('', '_blank');
+        var newDocument = newWindow.document;
+        newDocument.head.appendChild(head);
+        newDocument.body.appendChild(clonedContainer);
+        var html = newDocument.documentElement.outerHTML;
+        
+        var blob = new Blob([html], { type: 'text/html' });
+        var url = URL.createObjectURL(blob);
+
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'boleta_de_calificaciones.html';
+        a.click();
+    });
+
+    document.getElementById('print-btn').addEventListener('click', function() {
+        var container = document.getElementById('printable');
+        var clonedContainer = container.cloneNode(true);
+        var head = document.head.cloneNode(true);
+
+        var newWindow = window.open('', '_blank');
+        var newDocument = newWindow.document;
+        newDocument.head.appendChild(head);
+        newDocument.body.appendChild(clonedContainer);
+        newWindow.print();
+    });
+</script>
+
+</body>
+</html>

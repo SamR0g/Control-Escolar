@@ -16,7 +16,7 @@ if (mysqli_num_rows($consulta) > 0) {
 
     // Verificar la contraseña
     if (password_verify($Password, $hashAlmacenado)) {
-        $_SESSION['ID'] = $id;
+        $_SESSION['Matricula'] = $id;
         header("location: ../Modulos Personal/PrincipalPersonal.php");
         exit;
     } else {

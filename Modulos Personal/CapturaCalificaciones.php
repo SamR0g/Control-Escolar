@@ -15,9 +15,9 @@
                 <input type="text" id="id_materia" name="id_materia" required>
             </div>
             <div class="form-group">
-                <label for="nombre_materia">Nombre Materia:</label>
-                <input type="text" id="nombre_materia" name="nombre_materia" required>
-            </div>
+    <label for="materia">Materia:</label>
+    <input type="text" id="materia" name="materia" required>
+</div>
             <div class="form-group">
                 <label for="calificacion">Calificación:</label>
                 <input type="number" id="calificacion" name="calificacion" min="0" max="100" required>
@@ -25,6 +25,10 @@
             <div class="form-group">
                 <label for="asistencia">Asistencia:</label>
                 <input type="number" id="asistencia" name="asistencia" min="0" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="matricula">Matrícula del Alumno:</label>
+                <input type="text" id="matricula" name="matricula" required>
             </div>
             <button type="submit">Guardar</button>
         </form>

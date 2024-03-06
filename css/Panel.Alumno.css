@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .panel {
+    width: calc(50% - 40px);
+    float: left;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  .panel {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info {
+    padding: 20px;
+  }
+  
+  .academic {
+    padding: 20px;
+    border-top: 2px solid #ddd;
+  }
+  
+  @media (max-width: 600px) {
+    .panel {
+      width: 100%;
+      float: none;
+    }
+  }
+  
+  .panel:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Estilos para el menú desplegable */
+  .menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu:hover {
+    transform: scale(1.1) rotate(5deg);
+  }
+  
+  .menu img {
+    width: 100%; /* Cambiado para ajustar la imagen al círculo */
+    height: 100%; /* Cambiado para ajustar la imagen al círculo */
+    object-fit: contain; /* Asegura que la imagen se ajuste completamente al tamaño del círculo */
+  }
+  
+  .menu-options {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    padding: 0;
+  }
+  
+  .menu-options.show {
+    display: block;
+  }
+  
+  .menu-option {
+    padding: 10px;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-option:hover {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+  }
+  

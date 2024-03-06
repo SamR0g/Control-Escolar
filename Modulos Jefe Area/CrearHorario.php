@@ -41,7 +41,7 @@
                 <label for='grupo_${i}'>Grupo:</label>
                 <input type='text' id='grupo_${i}' name='grupo[]' required>
 
-                <label for='semestre_${i}'>Semestre:</label>
+                <label for='semestre_${i}'>ID:</label>
                 <input type='text' id='semestre_${i}' name='semestre[]' required>
 
                 <label for='lunes_${i}'>Lunes:</label>

@@ -1,101 +1,87 @@
 <?php
 session_start();
 
+// Verificar si el alumno ha iniciado sesión
 if (!isset($_SESSION['Matricula'])) {
-    echo '
-    <script>
-    alert("Por favor debes iniciar sesión");
-    window.location="LogInAlumno.php";
-    </script>
-    ';
-
-    session_destroy();
-    die();
+    // Si no ha iniciado sesión, redirigirlo al formulario de inicio de sesión
+    header("Location: ../Modulos Alumno/LogInAlumno.php");
+    exit;
 }
 
-include('../php/ConexionBase.php');
+// Establecer conexión con la base de datos
+$conn = new mysqli("localhost", "root", "", "controlescolar");
 
-$user_id = $_SESSION['Matricula'];
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener el ID del alumno actualmente autenticado
+$id_alumno = $_SESSION['Matricula'];
+
+// Consulta SQL para obtener la información del alumno
+$sql = "SELECT NombreCompleto, Edad, Semestre, Grupo, Turno FROM alumnos WHERE Matricula = $id_alumno"; 
+
+$result = $conn->query($sql);
+
+// Verificar si se encontraron resultados
+if ($result->num_rows > 0) {
+    // Mostrar datos obtenidos de la consulta
+    while ($row = $result->fetch_assoc()) {
+        $nombre = $row["NombreCompleto"];
+        $edad = $row["Edad"];
+        $semestre = $row["Semestre"];
+        $grupo = $row["Grupo"];
+        $turno = $row["Turno"];
+    }
+} else {
+    echo "No se encontraron resultados.";
+}
+
+// Cerrar conexión con la base de datos
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/PrincipalAlumno.css"> <!-- Asegúrate de incluir tus estilos aquí -->
-    
-    <title>Panel Alumno</title>
+    <title>Panel de Control del Alumno</title>
+    <link rel="stylesheet" href="../css/Panel.Alumno.css">
 </head>
-
 <body>
 
-    <div id="bienvenida">
-        <h1>Bienvenido</h1>
-    </div>
+<div class="menu" onclick="toggleMenu()">
+    <img src="../Imagenes/LogoBycenj.png" alt="Menú"> <!-- Cambia "tu_imagen_del_menu.png" por la ruta de tu imagen -->
+</div>
+<div class="menu-options" id="menuOptions">
+    <a href="#" class="menu-option">Opción 1</a>
+    <a href="#" class="menu-option">Opción 2</a>
+    <a href="#" class="menu-option">Opción 3</a>
+    <!-- Agrega más opciones según sea necesario -->
+</div>
 
-    <div id="menu-container">
-         <div id="circulo-menu" onclick="toggleMenu()">
-             <img src="../Imagenes/LogoBycenj.png" alt="Menú">
-          </div>
-         <div id="menu">
-             <a href="PrincipalAlumno.html">
-          <div>Inicio</div>
-             </a>
-             <a href="ConsultarHorario.php">
-         <div>Consulta Horario</div>
-             </a>
-             <a href="Kardex.html">
-         <div>Consulta Kardex</div>
-             </a>
-             <a href="Boleta.html">
-         <div>Consulta Boleta</div>
-             </a>
-             <a href="../php/CerrarSesionAlumno.php">
-         <div>Cerrar Sesion</div>
-             </a>
-         </div>
-  </div>
-
-    <div class="container">
-        <div class="usuario-ficha">
-            <?php
-            $user_id = $_SESSION['Matricula'];
-            $sql = "SELECT * FROM alumnos WHERE Matricula = ?";
-            $stmt = $con->prepare($sql);
-            $stmt->bind_param("i", $user_id);
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-            $datos = $result->fetch_assoc();
-            $stmt->close();
-
-            if ($datos) {
-                echo 'Nombre: ' . $datos['NombreCompleto'] . PHP_EOL;
-                echo 'Apellido Paterno: ' . $datos['ApellidoPaterno'] . PHP_EOL;
-                echo 'Apellido Materno: ' . $datos['ApellidoMaterno'] . PHP_EOL;
-                echo 'Correo Electrónico: ' . $datos['CorreoElectronico'] . PHP_EOL;
-                echo 'Semestre: ' . $datos['Semestre'] . PHP_EOL;
-                echo 'Grupo: ' . $datos['Grupo'] . PHP_EOL;
-            } else {
-                echo 'Usuario no encontrado.';
-            }
-            ?>
+<div class="container">
+    <div class="panel">
+        <div class="info">
+            <h2>Información del Alumno</h2>
+            <p><strong>Nombre:</strong> <?php echo $nombre; ?></p>
+            <p><strong>Edad:</strong> <?php echo $edad; ?> años</p>
+            <!-- Añade más datos según sea necesario -->
         </div>
-
-        <div class="additional-container">
-            <!-- Aquí puedes agregar más información o elementos según sea necesario -->
-        </div>
-
     </div>
+    <div class="panel">
+        <div class="academic">
+            <h2>Información Académica</h2>
+            <p><strong>Semestre:</strong> <?php echo $semestre; ?></p>
+            <p><strong>Grupo:</strong> <?php echo $grupo; ?></p>
+            <p><strong>Turno:</strong> <?php echo $turno; ?></p>
+            <!-- Añade más datos según sea necesario -->
+        </div>
+    </div>
+</div>
 
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById('menu');
-            menu.classList.toggle('active');
-        }
-    </script>
+<script src="../js/Menu.js"></script>
 </body>
-
 </html>

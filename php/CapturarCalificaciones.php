@@ -13,17 +13,17 @@ if ($conn->connect_error) {
 }
 
 // Obtener los datos del formulario
-$id_materia = $_POST['id_materia'];
-$nombre_materia = $_POST['nombre_materia'];
+$matricula = $_POST['matricula'];
 $calificacion = $_POST['calificacion'];
+$materia = $_POST['materia'];
 $asistencia = $_POST['asistencia'];
 
 // Insertar datos en la base de datos
-$sql = "INSERT INTO calificaciones (IDMateria, NombreMatera, Calificacion, Asistencia) VALUES ('$id_materia', '$nombre_materia', '$calificacion', '$asistencia')";
+$sql = "INSERT INTO calificaciones1 (Matricula, Calificacion, Materia, Asistencia) VALUES ('$matricula', '$calificacion', '$materia', '$asistencia')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Registro de calificación exitoso.";
-} else {
+    echo "<script>alert('Registro exitoso.');
+    window.location.href = '../Modulos Personal/CapturaCalificaciones.php';</script>";} else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 

@@ -36,11 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
         }
         
-        echo "Datos de materias registrados correctamente.";
-        
         // Cerrar la declaración y la conexión
         $stmt->close();
         $conn->close();
+        
+        // Mostrar notificación utilizando JavaScript
+        echo "<script>alert('Datos de materias registrados correctamente.');
+        window.location.href = '../Modulos Jefe Area/CrearHorario.php';</script>";
     } else {
         echo "Error: No se recibieron todos los datos necesarios.";
     }

@@ -22,8 +22,8 @@ if ($resultado->num_rows > 0) {
 
     // Ejecutar la consulta
     if ($con->query($sql) === TRUE) {
-        echo "Registro exitoso";
-    } else {
+        echo "<script>alert('Registro exitoso.');
+        window.location.href = '../Modulos Alumno/CrearCuenta.php';</script>";    } else {
         echo "Error al registrar: " . $con->error;
     }
 }

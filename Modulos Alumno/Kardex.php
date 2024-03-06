@@ -1,3 +1,14 @@
+<?php
+session_start(); // Iniciar sesión si no está iniciada aún
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION["Matricula"])) {
+    // Redirigir al usuario al formulario de inicio de sesión si no ha iniciado sesión
+    header("Location: LogInAlumno.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
@@ -1541,24 +1552,58 @@ body { margin-left: 0.33in; margin-right: 0.25in; margin-top: 0.34in; margin-bot
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-          <tr class="row10">
-            <td class="column0 style27 s style18" colspan="5">ALVAREZ</td>
-            <td class="column5 style28 s style18" colspan="6">MARTINEZ</td>
-            <td class="column11 style28 s style18" colspan="8">BRENDA NALLELY</td>
-            <td class="column19 style28 s style23" colspan="6">M</td>
-            <td class="column25 style1 null"></td>
-            <td class="column26 style3 null"></td>
-            <td class="column27 style1 null"></td>
-            <td class="column28 style29 null"></td>
-            <td class="column29 style29 null"></td>
-            <td class="column30 style30 null"></td>
-            <td class="column31 style30 null"></td>
-            <td class="column32 style30 null"></td>
-            <td class="column33 style30 null"></td>
-            <td class="column34 style30 null"></td>
-            <td class="column35 style30 null"></td>
-            <td class="column36 style30 null"></td>
-          </tr>
+
+          <?php
+          // Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "controlescolar";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
+
+// Consulta SQL para obtener los datos del usuario
+$sql = "SELECT ApellidoPaterno, ApellidoMaterno, NombreCompleto
+        FROM alumnos
+        WHERE Matricula = $user_id";
+$resultado = $conn->query($sql);
+
+if ($resultado->num_rows > 0) {
+    // Imprimir los datos en los campos correspondientes en HTML
+    while ($fila = $resultado->fetch_assoc()) {
+        echo '<tr class="row10">
+                <td class="column0 style27 s style18" colspan="5">' . $fila["ApellidoPaterno"] . '</td>
+                <td class="column5 style28 s style18" colspan="6">' . $fila["ApellidoMaterno"] . '</td>
+                <td class="column11 style28 s style18" colspan="8">' . $fila["NombreCompleto"] . '</td>
+                <td class="column19 style28 s style23" colspan="6">M</td>
+                <td class="column25 style1 null"></td>
+                <td class="column26 style3 null"></td>
+                <td class="column27 style1 null"></td>
+                <td class="column28 style29 null"></td>
+                <td class="column29 style29 null"></td>
+                <td class="column30 style30 null"></td>
+                <td class="column31 style30 null"></td>
+                <td class="column32 style30 null"></td>
+                <td class="column33 style30 null"></td>
+                <td class="column34 style30 null"></td>
+                <td class="column35 style30 null"></td>
+                <td class="column36 style30 null"></td>
+              </tr>';
+    }
+} else {
+    echo "No se encontraron resultados";
+}
+
+$conn->close();
+?>
+
           <tr class="row11">
             <td class="column0 style31 s style25" colspan="5">PRIMER APELLIDO</td>
             <td class="column5 style32 s style25" colspan="6">SEGUNDO APELLIDO</td>
@@ -1577,22 +1622,51 @@ body { margin-left: 0.33in; margin-right: 0.25in; margin-top: 0.34in; margin-bot
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-          <tr class="row12">
-            <td class="column0 style33 s style18" colspan="17">EDUCACION PRIMARIA                                PLAN 2018</td>
-            <td class="column17 style34 n style23" colspan="8">211403470000</td>
-            <td class="column25 style1 null"></td>
-            <td class="column26 style3 null"></td>
-            <td class="column27 style1 null"></td>
-            <td class="column28 style29 null"></td>
-            <td class="column29 style29 null"></td>
-            <td class="column30 style30 null"></td>
-            <td class="column31 style30 null"></td>
-            <td class="column32 style30 null"></td>
-            <td class="column33 style30 null"></td>
-            <td class="column34 style30 null"></td>
-            <td class="column35 style30 null"></td>
-            <td class="column36 style30 null"></td>
-          </tr>
+          <?php
+          // Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "controlescolar";
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
+         // Consulta SQL para obtener la matrícula del usuario
+$sql = "SELECT Matricula
+FROM alumnos
+WHERE Matricula = $user_id";
+$resultado = $conn->query($sql);
+if ($resultado->num_rows > 0) {
+// Imprimir la matrícula en el lugar correspondiente en HTML
+while ($fila = $resultado->fetch_assoc()) {
+echo '<tr class="row12">
+        <td class="column0 style33 s style18" colspan="17">EDUCACION PRIMARIA PLAN 2018</td>
+        <td class="column17 style34 n style23" colspan="8">' . $fila["Matricula"] . '</td>
+        <td class="column25 style1 null"></td>
+        <td class="column26 style3 null"></td>
+        <td class="column27 style1 null"></td>
+        <td class="column28 style29 null"></td>
+        <td class="column29 style29 null"></td>
+        <td class="column30 style30 null"></td>
+        <td class="column31 style30 null"></td>
+        <td class="column32 style30 null"></td>
+        <td class="column33 style30 null"></td>
+        <td class="column34 style30 null"></td>
+        <td class="column35 style30 null"></td>
+        <td class="column36 style30 null"></td>
+      </tr>';
+}
+} else {
+echo "No se encontraron resultados";
+}
+
+$conn->close();
+?>
+
           <tr class="row13">
             <td class="column0 style24 s style25" colspan="18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LICENCIATURA              Y                  PLAN DE ESTUDIOS</td>
             <td class="column18 style32 s style26" colspan="7">MATRÍCULA</td>
@@ -1674,28 +1748,61 @@ body { margin-left: 0.33in; margin-right: 0.25in; margin-top: 0.34in; margin-bot
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-          <tr class="row18">
-            <td class="column0 style43 s style0" colspan="2">SEMESTRE</td>
-            <td class="column2 style43 s style0" colspan="4">PERIODO ESCOLAR:</td>
-            <td class="column6 style42 s style0" colspan="4">2021-2022</td>
-            <td class="column10 style43 s style0" colspan="2">GRUPO:</td>
-            <td class="column12 style44 s style0" colspan="2">A</td>
-            <td class="column14 style45 s style47" colspan="3">TEMPORAL</td>
-            <td class="column17 style45 s style47" colspan="3">DEFINITIVA</td>
-            <td class="column20 style48 s style55" colspan="5" rowspan="2">GRUPO ESPECIAL</td>
-            <td class="column25 style2 null style0" rowspan="88"></td>
-            <td class="column26 style50 n style56" rowspan="10">9.42</td>
-            <td class="column27 style2 null style0" rowspan="88"></td>
-            <td class="column28 style6 null"></td>
-            <td class="column29 style6 null"></td>
-            <td class="column30 style4 null"></td>
-            <td class="column31 style4 null"></td>
-            <td class="column32 style4 null"></td>
-            <td class="column33 style4 null"></td>
-            <td class="column34 style4 null"></td>
-            <td class="column35 style4 null"></td>
-            <td class="column36 style4 null"></td>
-          </tr>
+          <?php
+// Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "controlescolar";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Verificar conexión
+if ($conn->connect_error) {
+  die("Conexión fallida: " . $conn->connect_error);
+}
+
+$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
+
+// Consulta SQL para obtener los datos del usuario
+$sql = "SELECT Semestre, periodo_escolar, Grupo
+      FROM alumnos
+      WHERE Matricula = $user_id";
+$resultado = $conn->query($sql);
+
+if ($resultado->num_rows > 0) {
+  // Imprimir los datos en los campos correspondientes en HTML
+  while ($fila = $resultado->fetch_assoc()) {
+
+    echo '<tr class="row18">
+    <td class="column0 style43 s style0" colspan="2">SEMESTRE</td>
+    <td class="column2 style43 s style0" colspan="4">' . $fila["periodo_escolar"] . '</td>
+    <td class="column6 style42 s style0" colspan="4">' . $fila["Semestre"] . '</td>
+    <td class="column10 style43 s style0" colspan="2">GRUPO:</td>
+    <td class="column12 style44 s style0" colspan="2">' . $fila["Grupo"] . '</td>
+    <td class="column14 style45 s style47" colspan="3">TEMPORAL</td>
+    <td class="column17 style45 s style47" colspan="3">DEFINITIVA</td>
+    <td class="column20 style48 s style55" colspan="5" rowspan="2">GRUPO ESPECIAL</td>
+    <td class="column25 style2 null style0" rowspan="88"></td>
+    <td class="column26 style50 n style56" rowspan="10">9.42</td>
+    <td class="column27 style2 null style0" rowspan="88"></td>
+    <td class="column28 style6 null"></td>
+    <td class="column29 style6 null"></td>
+    <td class="column30 style4 null"></td>
+    <td class="column31 style4 null"></td>
+    <td class="column32 style4 null"></td>
+    <td class="column33 style4 null"></td>
+    <td class="column34 style4 null"></td>
+    <td class="column35 style4 null"></td>
+    <td class="column36 style4 null"></td>
+  </tr>';
+}
+} else {
+echo "No se encontraron resultados";
+}
+
+          $conn->close();
+?>
           <tr class="row19">
             <td class="column0 style51 s style57" rowspan="2">CLAVE</td>
             <td class="column1 style52 s style59" colspan="9" rowspan="2">ASIGNATURAS</td>
