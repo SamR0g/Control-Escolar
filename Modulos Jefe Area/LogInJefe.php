@@ -1,7 +1,7 @@
 <?php
 //esto va en cada inicio de sesion
 session_start();
-if(isset($_SESSION['Matricula'])){
+if(isset($_SESSION['ID'])){
     header("location: ./PanelJefe.php");
     exit;
   

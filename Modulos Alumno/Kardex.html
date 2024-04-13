@@ -1,22 +1,3 @@
-<?php
-session_start(); // Iniciar sesión si no está iniciada aún
-
-// Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION["Matricula"])) {
-    // Redirigir al usuario al formulario de inicio de sesión si no ha iniciado sesión
-    header("Location: LogInAlumno.php");
-    exit();
-}
-
-// Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "controlescolar";
-
-$conn = new mysqli($servername, $username, $password, $database);
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
@@ -1526,51 +1507,25 @@ body { margin-left: 0.33in; margin-right: 0.25in; margin-top: 0.34in; margin-bot
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-<?php
-
-// Verificar conexión
-if ($conn->connect_error) {
-  die("Conexión fallida: " . $conn->connect_error);
-}
-
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener el dato de CURP del usuario
-$sql = "SELECT CURP
-      FROM alumnos
-      WHERE Matricula = $user_id";
-$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-  // Imprimir el dato de CURP en el lugar correspondiente en HTML
-  while ($fila = $resultado->fetch_assoc()) {
-      echo '<tr class="row8">
-              <td class="column0 style17 s style18" colspan="6">AVENIDA ALCALDE 1190</td>
-              <td class="column6 style19 s style18" colspan="3">MIRAFLORES</td>
-              <td class="column9 style20 s style18" colspan="4"><span style="color:#000000; font-family:\'Calibri\'; font-size:14pt"> </span><span style="font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:11pt">GUADALAJARA </span></td>
-              <td class="column13 style21 s style18" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JALISCO</td>
-              <td class="column16 style22 s style23" colspan="9">' . $fila["CURP"] . '</td>
-              <td class="column25 style1 null"></td>
-              <td class="column26 style3 null"></td>
-              <td class="column27 style1 null"></td>
-              <td class="column28 style13 null"></td>
-              <td class="column29 style13 null"></td>
-              <td class="column30 style14 null"></td>
-              <td class="column31 style14 null"></td>
-              <td class="column32 style14 null"></td>
-              <td class="column33 style14 null"></td>
-              <td class="column34 style14 null"></td>
-              <td class="column35 style14 null"></td>
-              <td class="column36 style14 null"></td>
-            </tr>';
-  }
-} else {
-  echo "No se encontraron resultados";
-}
-
-$conn->close();
-?>
-
+          <tr class="row8">
+            <td class="column0 style17 s style18" colspan="6">AVENIDA  ALCALDE  1190</td>
+            <td class="column6 style19 s style18" colspan="3">MIRAFLORES</td>
+            <td class="column9 style20 s style18" colspan="4"><span style="color:#000000; font-family:'Calibri'; font-size:14pt">  </span><span style="font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt">GUADALAJARA  </span></td>
+            <td class="column13 style21 s style18" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JALISCO</td>
+            <td class="column16 style22 s style23" colspan="9">AAMB020806MASLRRA4</td>
+            <td class="column25 style1 null"></td>
+            <td class="column26 style3 null"></td>
+            <td class="column27 style1 null"></td>
+            <td class="column28 style13 null"></td>
+            <td class="column29 style13 null"></td>
+            <td class="column30 style14 null"></td>
+            <td class="column31 style14 null"></td>
+            <td class="column32 style14 null"></td>
+            <td class="column33 style14 null"></td>
+            <td class="column34 style14 null"></td>
+            <td class="column35 style14 null"></td>
+            <td class="column36 style14 null"></td>
+          </tr>
           <tr class="row9">
             <td class="column0 style24 s style26" colspan="25">DOMICILIO                                                             COLONIA                     MUNICIPIO                  ENTIDAD FEDERATIVA                   CLAVE UNICA DE REGISTRO DE POBLACIÓN  (CURP)</td>
             <td class="column25 style1 null"></td>
@@ -1586,58 +1541,24 @@ $conn->close();
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-
-          <?php
-          // Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "controlescolar";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener los datos del usuario
-$sql = "SELECT ApellidoPaterno, ApellidoMaterno, NombreCompleto
-        FROM alumnos
-        WHERE Matricula = $user_id";
-$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row10">
-                <td class="column0 style27 s style18" colspan="5">' . $fila["ApellidoPaterno"] . '</td>
-                <td class="column5 style28 s style18" colspan="6">' . $fila["ApellidoMaterno"] . '</td>
-                <td class="column11 style28 s style18" colspan="8">' . $fila["NombreCompleto"] . '</td>
-                <td class="column19 style28 s style23" colspan="6">M</td>
-                <td class="column25 style1 null"></td>
-                <td class="column26 style3 null"></td>
-                <td class="column27 style1 null"></td>
-                <td class="column28 style29 null"></td>
-                <td class="column29 style29 null"></td>
-                <td class="column30 style30 null"></td>
-                <td class="column31 style30 null"></td>
-                <td class="column32 style30 null"></td>
-                <td class="column33 style30 null"></td>
-                <td class="column34 style30 null"></td>
-                <td class="column35 style30 null"></td>
-                <td class="column36 style30 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-
-$conn->close();
-?>
-
+          <tr class="row10">
+            <td class="column0 style27 s style18" colspan="5">ALVAREZ</td>
+            <td class="column5 style28 s style18" colspan="6">MARTINEZ</td>
+            <td class="column11 style28 s style18" colspan="8">BRENDA NALLELY</td>
+            <td class="column19 style28 s style23" colspan="6">M</td>
+            <td class="column25 style1 null"></td>
+            <td class="column26 style3 null"></td>
+            <td class="column27 style1 null"></td>
+            <td class="column28 style29 null"></td>
+            <td class="column29 style29 null"></td>
+            <td class="column30 style30 null"></td>
+            <td class="column31 style30 null"></td>
+            <td class="column32 style30 null"></td>
+            <td class="column33 style30 null"></td>
+            <td class="column34 style30 null"></td>
+            <td class="column35 style30 null"></td>
+            <td class="column36 style30 null"></td>
+          </tr>
           <tr class="row11">
             <td class="column0 style31 s style25" colspan="5">PRIMER APELLIDO</td>
             <td class="column5 style32 s style25" colspan="6">SEGUNDO APELLIDO</td>
@@ -1656,50 +1577,22 @@ $conn->close();
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-          <?php
-          // Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "controlescolar";
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-         // Consulta SQL para obtener la matrícula del usuario
-$sql = "SELECT Matricula
-FROM alumnos
-WHERE Matricula = $user_id";
-$resultado = $conn->query($sql);
-if ($resultado->num_rows > 0) {
-// Imprimir la matrícula en el lugar correspondiente en HTML
-while ($fila = $resultado->fetch_assoc()) {
-echo '<tr class="row12">
-        <td class="column0 style33 s style18" colspan="17">EDUCACION PRIMARIA PLAN 2018</td>
-        <td class="column17 style34 n style23" colspan="8">' . $fila["Matricula"] . '</td>
-        <td class="column25 style1 null"></td>
-        <td class="column26 style3 null"></td>
-        <td class="column27 style1 null"></td>
-        <td class="column28 style29 null"></td>
-        <td class="column29 style29 null"></td>
-        <td class="column30 style30 null"></td>
-        <td class="column31 style30 null"></td>
-        <td class="column32 style30 null"></td>
-        <td class="column33 style30 null"></td>
-        <td class="column34 style30 null"></td>
-        <td class="column35 style30 null"></td>
-        <td class="column36 style30 null"></td>
-      </tr>';
-}
-} else {
-echo "No se encontraron resultados";
-}
-
-?>
-
+          <tr class="row12">
+            <td class="column0 style33 s style18" colspan="17">EDUCACION PRIMARIA                                PLAN 2018</td>
+            <td class="column17 style34 n style23" colspan="8">211403470000</td>
+            <td class="column25 style1 null"></td>
+            <td class="column26 style3 null"></td>
+            <td class="column27 style1 null"></td>
+            <td class="column28 style29 null"></td>
+            <td class="column29 style29 null"></td>
+            <td class="column30 style30 null"></td>
+            <td class="column31 style30 null"></td>
+            <td class="column32 style30 null"></td>
+            <td class="column33 style30 null"></td>
+            <td class="column34 style30 null"></td>
+            <td class="column35 style30 null"></td>
+            <td class="column36 style30 null"></td>
+          </tr>
           <tr class="row13">
             <td class="column0 style24 s style25" colspan="18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LICENCIATURA              Y                  PLAN DE ESTUDIOS</td>
             <td class="column18 style32 s style26" colspan="7">MATRÍCULA</td>
@@ -1716,40 +1609,22 @@ echo "No se encontraron resultados";
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-<?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-       // Consulta SQL para obtener los datos de lugar de nacimiento y turno del usuario
-$sql = "SELECT  Turno,	lugar_nacimiento
-FROM alumnos
-WHERE Matricula = $user_id";
-$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-              // Imprimir los datos en los campos correspondientes en HTML
-              while ($fila = $resultado->fetch_assoc()) {
-                  echo '<tr class="row14">
-                          <td class="column0 style35 s style18" colspan="16">' . $fila["lugar_nacimiento"] . '</td>
-                          <td class="column16 style22 s style23" colspan="9">' . $fila["Turno"] . '</td>
-                          <td class="column25 style1 null"></td>
-                          <td class="column26 style3 null"></td>
-                          <td class="column27 style1 null"></td>
-                          <td class="column28 style29 null"></td>
-                          <td class="column29 style29 null"></td>
-                          <td class="column30 style30 null"></td>
-                          <td class="column31 style30 null"></td>
-                          <td class="column32 style30 null"></td>
-                          <td class="column33 style30 null"></td>
-                          <td class="column34 style30 null"></td>
-                          <td class="column35 style30 null"></td>
-                          <td class="column36 style30 null"></td>
-                        </tr>';
-              }
-          } else {
-              echo "No se encontraron resultados";
-          }
-          
-          ?>
-
+          <tr class="row14">
+            <td class="column0 style35 s style18" colspan="16">AGUASCALIENTES, AGS. 6 DE AGOSTO DE 2002</td>
+            <td class="column16 style22 s style23" colspan="9">MATUTINO</td>
+            <td class="column25 style1 null"></td>
+            <td class="column26 style3 null"></td>
+            <td class="column27 style1 null"></td>
+            <td class="column28 style29 null"></td>
+            <td class="column29 style29 null"></td>
+            <td class="column30 style30 null"></td>
+            <td class="column31 style30 null"></td>
+            <td class="column32 style30 null"></td>
+            <td class="column33 style30 null"></td>
+            <td class="column34 style30 null"></td>
+            <td class="column35 style30 null"></td>
+            <td class="column36 style30 null"></td>
+          </tr>
           <tr class="row15">
             <td class="column0 style36 s style37" colspan="18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LUGAR Y FECHA DE NACIMIENTO</td>
             <td class="column18 style38 s style39" colspan="7">TURNO</td>
@@ -1799,60 +1674,28 @@ if ($resultado->num_rows > 0) {
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-          <?php
-// Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "controlescolar";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Verificar conexión
-if ($conn->connect_error) {
-  die("Conexión fallida: " . $conn->connect_error);
-}
-
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener los datos del usuario
-$sql = "SELECT Semestre, periodo_escolar, Grupo
-      FROM alumnos
-      WHERE Matricula = $user_id";
-$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-  // Imprimir los datos en los campos correspondientes en HTML
-  while ($fila = $resultado->fetch_assoc()) {
-
-    echo '<tr class="row18">
-    <td class="column0 style43 s style0" colspan="2">SEMESTRE</td>
-    <td class="column2 style43 s style0" colspan="4">' . $fila["periodo_escolar"] . '</td>
-    <td class="column6 style42 s style0" colspan="4">' . $fila["Semestre"] . '</td>
-    <td class="column10 style43 s style0" colspan="2">GRUPO:</td>
-    <td class="column12 style44 s style0" colspan="2">' . $fila["Grupo"] . '</td>
-    <td class="column14 style45 s style47" colspan="3">TEMPORAL</td>
-    <td class="column17 style45 s style47" colspan="3">DEFINITIVA</td>
-    <td class="column20 style48 s style55" colspan="5" rowspan="2">GRUPO ESPECIAL</td>
-    <td class="column25 style2 null style0" rowspan="88"></td>
-    <td class="column26 style50 n style56" rowspan="10">9.42</td>
-    <td class="column27 style2 null style0" rowspan="88"></td>
-    <td class="column28 style6 null"></td>
-    <td class="column29 style6 null"></td>
-    <td class="column30 style4 null"></td>
-    <td class="column31 style4 null"></td>
-    <td class="column32 style4 null"></td>
-    <td class="column33 style4 null"></td>
-    <td class="column34 style4 null"></td>
-    <td class="column35 style4 null"></td>
-    <td class="column36 style4 null"></td>
-  </tr>';
-}
-} else {
-echo "No se encontraron resultados";
-}
-
-?>
+          <tr class="row18">
+            <td class="column0 style43 s style0" colspan="2">SEMESTRE</td>
+            <td class="column2 style43 s style0" colspan="4">PERIODO ESCOLAR:</td>
+            <td class="column6 style42 s style0" colspan="4">2021-2022</td>
+            <td class="column10 style43 s style0" colspan="2">GRUPO:</td>
+            <td class="column12 style44 s style0" colspan="2">A</td>
+            <td class="column14 style45 s style47" colspan="3">TEMPORAL</td>
+            <td class="column17 style45 s style47" colspan="3">DEFINITIVA</td>
+            <td class="column20 style48 s style55" colspan="5" rowspan="2">GRUPO ESPECIAL</td>
+            <td class="column25 style2 null style0" rowspan="88"></td>
+            <td class="column26 style50 n style56" rowspan="10">9.42</td>
+            <td class="column27 style2 null style0" rowspan="88"></td>
+            <td class="column28 style6 null"></td>
+            <td class="column29 style6 null"></td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
           <tr class="row19">
             <td class="column0 style51 s style57" rowspan="2">CLAVE</td>
             <td class="column1 style52 s style59" colspan="9" rowspan="2">ASIGNATURAS</td>
@@ -1885,268 +1728,145 @@ echo "No se encontraron resultados";
             <td class="column35 style4 null"></td>
             <td class="column36 style4 null"></td>
           </tr>
-
-          <?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener la calificación y la asistencia del usuario
-$sql = "SELECT DISTINCT Matricula, Calificacion, Asistencia
-        FROM calificaciones1
-        WHERE Matricula = $user_id AND id = 11";$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row21">
-                <td class="column0 style63 n">11</td>
-                <td class="column1 style64 s style47" colspan="9">Desarrollo y aprendizaje</td>
-                <td class="column10 style65 n style47" colspan="2">' . $fila["Calificacion"] . '</td>
-                <td class="column12 style66 n style47" colspan="2">' . $fila["Asistencia"] . '%</td>
-                <td class="column14 style67 null style47" colspan="2"></td>
-                <td class="column16 style68 null"></td>
-                <td class="column17 style69 null style47" colspan="2"></td>
-                <td class="column19 style68 null"></td>
-                <td class="column20 style62 null style47" colspan="5"></td>
-                <td class="column28 style6 null"></td>
-                <td class="column29 style6 null"></td>
-                <td class="column30 style4 null"></td>
-                <td class="column31 style4 null"></td>
-                <td class="column32 style4 null"></td>
-                <td class="column33 style4 null"></td>
-                <td class="column34 style4 null"></td>
-                <td class="column35 style4 null"></td>
-                <td class="column36 style4 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-?>
-
-<?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener la calificación y la asistencia del usuario
-$sql = "SELECT DISTINCT Matricula, Calificacion, Asistencia
-        FROM calificaciones1
-        WHERE Matricula = $user_id AND id = 12";$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row21">
-                <td class="column0 style63 n">12</td>
-                <td class="column1 style64 s style47" colspan="9">El sujeto y su formación profesional</td>
-                <td class="column10 style65 n style47" colspan="2">' . $fila["Calificacion"] . '</td>
-                <td class="column12 style66 n style47" colspan="2">' . $fila["Asistencia"] . '%</td>
-                <td class="column14 style67 null style47" colspan="2"></td>
-                <td class="column16 style68 null"></td>
-                <td class="column17 style69 null style47" colspan="2"></td>
-                <td class="column19 style68 null"></td>
-                <td class="column20 style62 null style47" colspan="5"></td>
-                <td class="column28 style6 null"></td>
-                <td class="column29 style6 null"></td>
-                <td class="column30 style4 null"></td>
-                <td class="column31 style4 null"></td>
-                <td class="column32 style4 null"></td>
-                <td class="column33 style4 null"></td>
-                <td class="column34 style4 null"></td>
-                <td class="column35 style4 null"></td>
-                <td class="column36 style4 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-?>
-       <?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener la calificación y la asistencia del usuario
-$sql = "SELECT DISTINCT Matricula, Calificacion, Asistencia
-        FROM calificaciones1
-        WHERE Matricula = $user_id AND id = 13";$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row21">
-                <td class="column0 style63 n">13</td>
-                <td class="column1 style64 s style47" colspan="9">Lenguaje y Comunicacion</td>
-                <td class="column10 style65 n style47" colspan="2">' . $fila["Calificacion"] . '</td>
-                <td class="column12 style66 n style47" colspan="2">' . $fila["Asistencia"] . '%</td>
-                <td class="column14 style67 null style47" colspan="2"></td>
-                <td class="column16 style68 null"></td>
-                <td class="column17 style69 null style47" colspan="2"></td>
-                <td class="column19 style68 null"></td>
-                <td class="column20 style62 null style47" colspan="5"></td>
-                <td class="column28 style6 null"></td>
-                <td class="column29 style6 null"></td>
-                <td class="column30 style4 null"></td>
-                <td class="column31 style4 null"></td>
-                <td class="column32 style4 null"></td>
-                <td class="column33 style4 null"></td>
-                <td class="column34 style4 null"></td>
-                <td class="column35 style4 null"></td>
-                <td class="column36 style4 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-?>
-
-
-<?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener la calificación y la asistencia del usuario
-$sql = "SELECT DISTINCT Matricula, Calificacion, Asistencia
-        FROM calificaciones1
-        WHERE Matricula = $user_id AND id = 14";$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row21">
-                <td class="column0 style63 n">14</td>
-                <td class="column1 style64 s style47" colspan="9">Aritmetica Numeros Naturales</td>
-                <td class="column10 style65 n style47" colspan="2">' . $fila["Calificacion"] . '</td>
-                <td class="column12 style66 n style47" colspan="2">' . $fila["Asistencia"] . '%</td>
-                <td class="column14 style67 null style47" colspan="2"></td>
-                <td class="column16 style68 null"></td>
-                <td class="column17 style69 null style47" colspan="2"></td>
-                <td class="column19 style68 null"></td>
-                <td class="column20 style62 null style47" colspan="5"></td>
-                <td class="column28 style6 null"></td>
-                <td class="column29 style6 null"></td>
-                <td class="column30 style4 null"></td>
-                <td class="column31 style4 null"></td>
-                <td class="column32 style4 null"></td>
-                <td class="column33 style4 null"></td>
-                <td class="column34 style4 null"></td>
-                <td class="column35 style4 null"></td>
-                <td class="column36 style4 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-?>
-
-<?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener la calificación y la asistencia del usuario
-$sql = "SELECT DISTINCT Matricula, Calificacion, Asistencia
-        FROM calificaciones1
-        WHERE Matricula = $user_id AND id = 15";$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row21">
-        <td class="column0 style63 n">15</td>
-        <td class="column1 style64 s style47" colspan="9">Introducción a la naturaleza de la ciencia</td>
-                <td class="column10 style65 n style47" colspan="2">' . $fila["Calificacion"] . '</td>
-                <td class="column12 style66 n style47" colspan="2">' . $fila["Asistencia"] . '%</td>
-                <td class="column14 style67 null style47" colspan="2"></td>
-                <td class="column16 style68 null"></td>
-                <td class="column17 style69 null style47" colspan="2"></td>
-                <td class="column19 style68 null"></td>
-                <td class="column20 style62 null style47" colspan="5"></td>
-                <td class="column28 style6 null"></td>
-                <td class="column29 style6 null"></td>
-                <td class="column30 style4 null"></td>
-                <td class="column31 style4 null"></td>
-                <td class="column32 style4 null"></td>
-                <td class="column33 style4 null"></td>
-                <td class="column34 style4 null"></td>
-                <td class="column35 style4 null"></td>
-                <td class="column36 style4 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-?>
-
-
-       
-<?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener la calificación y la asistencia del usuario
-$sql = "SELECT DISTINCT Matricula, Calificacion, Asistencia
-        FROM calificaciones1
-        WHERE Matricula = $user_id AND id = 16";$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row21">
-        <td class="column0 style63 n">16</td>
-        <td class="column1 style64 s style47" colspan="9">Herramientas para la observación y análisis de la práctica educativa</td>
-                <td class="column10 style65 n style47" colspan="2">' . $fila["Calificacion"] . '</td>
-                <td class="column12 style66 n style47" colspan="2">' . $fila["Asistencia"] . '%</td>
-                <td class="column14 style67 null style47" colspan="2"></td>
-                <td class="column16 style68 null"></td>
-                <td class="column17 style69 null style47" colspan="2"></td>
-                <td class="column19 style68 null"></td>
-                <td class="column20 style62 null style47" colspan="5"></td>
-                <td class="column28 style6 null"></td>
-                <td class="column29 style6 null"></td>
-                <td class="column30 style4 null"></td>
-                <td class="column31 style4 null"></td>
-                <td class="column32 style4 null"></td>
-                <td class="column33 style4 null"></td>
-                <td class="column34 style4 null"></td>
-                <td class="column35 style4 null"></td>
-                <td class="column36 style4 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-?>
-
-
-<?php
-$user_id = $_SESSION["Matricula"]; // Obtener el ID de usuario de la sesión
-
-// Consulta SQL para obtener la calificación y la asistencia del usuario
-$sql = "SELECT DISTINCT Matricula, Calificacion, Asistencia
-        FROM calificaciones1
-        WHERE Matricula = $user_id AND id = 17";$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    // Imprimir los datos en los campos correspondientes en HTML
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<tr class="row21">
-        <td class="column0 style63 n">16</td>
-        <td class="column1 style64 s style47" colspan="9">Inglés. Inicio de la comunicación básica</td>                <td class="column10 style65 n style47" colspan="2">' . $fila["Calificacion"] . '</td>
-                <td class="column12 style66 n style47" colspan="2">' . $fila["Asistencia"] . '%</td>
-                <td class="column14 style67 null style47" colspan="2"></td>
-                <td class="column16 style68 null"></td>
-                <td class="column17 style69 null style47" colspan="2"></td>
-                <td class="column19 style68 null"></td>
-                <td class="column20 style62 null style47" colspan="5"></td>
-                <td class="column28 style6 null"></td>
-                <td class="column29 style6 null"></td>
-                <td class="column30 style4 null"></td>
-                <td class="column31 style4 null"></td>
-                <td class="column32 style4 null"></td>
-                <td class="column33 style4 null"></td>
-                <td class="column34 style4 null"></td>
-                <td class="column35 style4 null"></td>
-                <td class="column36 style4 null"></td>
-              </tr>';
-    }
-} else {
-    echo "No se encontraron resultados";
-}
-?>
-
+          <tr class="row21">
+            <td class="column0 style63 n">11</td>
+            <td class="column1 style64 s style47" colspan="9">Desarrollo y aprendizaje</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">90%</td>
+            <td class="column14 style67 null style47" colspan="2"></td>
+            <td class="column16 style68 null"></td>
+            <td class="column17 style69 null style47" colspan="2"></td>
+            <td class="column19 style68 null"></td>
+            <td class="column20 style62 null style47" colspan="5"></td>
+            <td class="column28 style6 null"></td>
+            <td class="column29 style6 null"></td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
+          <tr class="row22">
+            <td class="column0 style63 n">12</td>
+            <td class="column1 style64 s style47" colspan="9">El sujeto y su formación profesional</td>
+            <td class="column10 style65 n style47" colspan="2">9</td>
+            <td class="column12 style66 n style47" colspan="2">95%</td>
+            <td class="column14 style69 null style47" colspan="2"></td>
+            <td class="column16 style68 null"></td>
+            <td class="column17 style69 null style47" colspan="2"></td>
+            <td class="column19 style68 null"></td>
+            <td class="column20 style62 null style47" colspan="5"></td>
+            <td class="column28 style6 null"></td>
+            <td class="column29 style6 null"></td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
+          <tr class="row23">
+            <td class="column0 style63 n">13</td>
+            <td class="column1 style64 s style47" colspan="9">Lenguaje y comunicación</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
+            <td class="column14 style69 null style47" colspan="2"></td>
+            <td class="column16 style68 null"></td>
+            <td class="column17 style69 null style47" colspan="2"></td>
+            <td class="column19 style68 null"></td>
+            <td class="column20 style48 s style55" colspan="5" rowspan="2">TALLER</td>
+            <td class="column28 style6 null"></td>
+            <td class="column29 style6 null"></td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
+          <tr class="row24">
+            <td class="column0 style63 n">14</td>
+            <td class="column1 style64 s style47" colspan="9">Aritmética. Números naturales</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
+            <td class="column14 style69 null style47" colspan="2"></td>
+            <td class="column16 style68 null"></td>
+            <td class="column17 style69 null style47" colspan="2"></td>
+            <td class="column19 style68 null"></td>
+            <td class="column28 style6 null"></td>
+            <td class="column29 style6 null"></td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
+          <tr class="row25">
+            <td class="column0 style63 n">15</td>
+            <td class="column1 style64 s style47" colspan="9">Introducción a la naturaleza de la ciencia</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
+            <td class="column14 style69 null style47" colspan="2"></td>
+            <td class="column16 style68 null"></td>
+            <td class="column17 style69 null style47" colspan="2"></td>
+            <td class="column19 style68 null"></td>
+            <td class="column20 style62 null style47" colspan="5"></td>
+            <td class="column28 style6 null"></td>
+            <td class="column29 style6 null"></td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
+          <tr class="row26">
+            <td class="column0 style63 n">16</td>
+            <td class="column1 style64 s style47" colspan="9">Herramientas para la observación y análisis de la práctica educativa</td>
+            <td class="column10 style65 n style47" colspan="2">9</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
+            <td class="column14 style69 null style47" colspan="2"></td>
+            <td class="column16 style68 null"></td>
+            <td class="column17 style69 null style47" colspan="2"></td>
+            <td class="column19 style68 null"></td>
+            <td class="column20 style62 null style47" colspan="5"></td>
+            <td class="column28 style6 null"></td>
+            <td class="column29 style70 n">7</td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
+          <tr class="row27">
+            <td class="column0 style63 n">17</td>
+            <td class="column1 style64 s style47" colspan="9">Inglés. Inicio de la comunicación básica</td>
+            <td class="column10 style65 n style47" colspan="2">8</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
+            <td class="column14 style69 null style47" colspan="2"></td>
+            <td class="column16 style68 null"></td>
+            <td class="column17 style69 null style47" colspan="2"></td>
+            <td class="column19 style68 null"></td>
+            <td class="column20 style62 null style47" colspan="5"></td>
+            <td class="column28 style70 n">66</td>
+            <td class="column29 style6 null"></td>
+            <td class="column30 style4 null"></td>
+            <td class="column31 style4 null"></td>
+            <td class="column32 style4 null"></td>
+            <td class="column33 style4 null"></td>
+            <td class="column34 style4 null"></td>
+            <td class="column35 style4 null"></td>
+            <td class="column36 style4 null"></td>
+          </tr>
           <tr class="row28">
             <td class="column0 style71 null style0" colspan="25"></td>
             <td class="column26 style72 null style73" rowspan="2"></td>
@@ -2230,8 +1950,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row33">
             <td class="column0 style63 n">21</td>
             <td class="column1 style64 s style47" colspan="9">Planeación y evaluación de la enseñanza y el aprendizaje</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2250,8 +1970,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row34">
             <td class="column0 style63 n">23</td>
             <td class="column1 style64 s style47" colspan="9">Prácticas sociales del lenguaje</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">99%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2270,8 +1990,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row35">
             <td class="column0 style63 n">24</td>
             <td class="column1 style64 s style47" colspan="9">Aritmética. Números decimales y fracciones</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">99%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2289,8 +2009,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row36">
             <td class="column0 style63 n">25</td>
             <td class="column1 style64 s style47" colspan="9">Estudio del medio ambiente y la naturaleza</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2309,8 +2029,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row37">
             <td class="column0 style63 n">26</td>
             <td class="column1 style64 s style47" colspan="9">Observación y análisis de prácticas y contextos escolares</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">9</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2329,8 +2049,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row38">
             <td class="column0 style63 n">27</td>
             <td class="column1 style64 s style47" colspan="9">Inglés. Desarrollo de conversaciones elementales</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">9</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2429,8 +2149,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row44">
             <td class="column0 style63 n">31</td>
             <td class="column1 style64 s style47" colspan="9">Educación Socioemocional</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2449,8 +2169,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row45">
             <td class="column0 style63 n">33</td>
             <td class="column1 style64 s style47" colspan="9">Desarrollo de competencia lectora</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">8</td>
+            <td class="column12 style66 n style47" colspan="2">95%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2469,8 +2189,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row46">
             <td class="column0 style63 n">34</td>
             <td class="column1 style77 s style47" colspan="9">Álgebra</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">8</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2489,8 +2209,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row47">
             <td class="column0 style63 n">35</td>
             <td class="column1 style64 s style47" colspan="9">Geografía</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2508,8 +2228,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row48">
             <td class="column0 style63 n">36</td>
             <td class="column1 style64 s style47" colspan="9">Iniciación al trabajo docente</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">9</td>
+            <td class="column12 style66 n style47" colspan="2">98%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2528,8 +2248,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row49">
             <td class="column0 style63 n">37</td>
             <td class="column1 style64 s style47" colspan="9">Inglés. Intercambio de información e ideas</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">8</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2548,8 +2268,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row50">
             <td class="column0 style63 n">38</td>
             <td class="column1 style64 s style47" colspan="9">Optativo I</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">8</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2648,8 +2368,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row56">
             <td class="column0 style63 n">41</td>
             <td class="column1 style64 s style47" colspan="9">Atención a la diversidad</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2668,8 +2388,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row57">
             <td class="column0 style63 n">42</td>
             <td class="column1 style64 s style47" colspan="9">Modelos pedagógicos</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2688,8 +2408,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row58">
             <td class="column0 style63 n">43</td>
             <td class="column1 style64 s style47" colspan="9">Producción de textos escritos</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2708,8 +2428,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row59">
             <td class="column0 style63 n">44</td>
             <td class="column1 style64 s style47" colspan="9">Geometría</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">8</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2727,8 +2447,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row60">
             <td class="column0 style63 n">45</td>
             <td class="column1 style64 s style47" colspan="9">Historia</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2747,8 +2467,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row61">
             <td class="column0 style63 n">46</td>
             <td class="column1 style64 s style47" colspan="9">Estrategias de trabajo docente</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">10</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2767,8 +2487,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row62">
             <td class="column0 style63 n">47</td>
             <td class="column1 style64 s style47" colspan="9">Inglés. Fortalecimiento de la confianza en la conversación</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">9</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>
@@ -2787,8 +2507,8 @@ if ($resultado->num_rows > 0) {
           <tr class="row63">
             <td class="column0 style63 n">48</td>
             <td class="column1 style64 s style47" colspan="9">Optativo II</td>
-            <td class="column10 style65 n style47" colspan="2">0</td>
-            <td class="column12 style66 n style47" colspan="2">0%</td>
+            <td class="column10 style65 n style47" colspan="2">8</td>
+            <td class="column12 style66 n style47" colspan="2">100%</td>
             <td class="column14 style69 null style47" colspan="2"></td>
             <td class="column16 style68 null"></td>
             <td class="column17 style69 null style47" colspan="2"></td>

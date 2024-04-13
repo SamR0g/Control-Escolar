@@ -4,7 +4,7 @@ session_start();
 
 include 'ConexionBase.php';
 
-$id = $_POST['ID'];
+$id = $_POST['Matricula'];
 $Password = $_POST['Password'];
 
 // Obtener la contraseña almacenada desde la base de datos
@@ -16,7 +16,7 @@ if (mysqli_num_rows($consulta) > 0) {
 
     // Verificar la contraseña
     if (password_verify($Password, $hashAlmacenado)) {
-        $_SESSION['Matricula'] = $id;
+        $_SESSION['ID'] = $id;
         header("location: ../Modulos Personal/PrincipalPersonal.php");
         exit;
     } else {

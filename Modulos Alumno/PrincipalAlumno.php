@@ -56,9 +56,10 @@ $conn->close();
     <img src="../Imagenes/LogoBycenj.png" alt="Menú"> <!-- Cambia "tu_imagen_del_menu.png" por la ruta de tu imagen -->
 </div>
 <div class="menu-options" id="menuOptions">
-    <a href="#" class="menu-option">Opción 1</a>
-    <a href="#" class="menu-option">Opción 2</a>
-    <a href="#" class="menu-option">Opción 3</a>
+    <a href="Boleta.php" class="menu-option">Boleta</a>
+    <a href="ConsultarHorario.php" class="menu-option">Horario</a>
+    <a href="Kardex.php" class="menu-option">Kardex</a>
+    <a href="../php/CerrarSsionAlumno.php" class="menu-option">Cerrar sesion</a>
     <!-- Agrega más opciones según sea necesario -->
 </div>
 
