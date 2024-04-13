@@ -1,4 +1,14 @@
 <?php
+
+session_start();
+
+// Verificar si el alumno ha iniciado sesión
+if (!isset($_SESSION['ID'])) {
+    // Si no ha iniciado sesión, redirigirlo al formulario de inicio de sesión
+    header("Location: ../Modulos Personal/LogInPersonal.php");
+    exit;
+}
+
 // Verificar si se recibió la matrícula del alumno a editar
 if (isset($_GET['matricula'])) {
     $matricula = $_GET['matricula'];

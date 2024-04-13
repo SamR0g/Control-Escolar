@@ -4,7 +4,7 @@ session_start();
 // Verificar si el alumno ha iniciado sesión
 if (!isset($_SESSION['ID'])) {
     // Si no ha iniciado sesión, redirigirlo al formulario de inicio de sesión
-    header("Location: ../Modulos Personal/LogInPersonal.php");
+    header("Location: ../Modulos Jefe Area/LogInJefe.php");
     exit;
 }
 
@@ -59,7 +59,7 @@ $conn->close();
     <a href="./CapturaCalificaciones.php" class="menu-option">Captura de calificaciones</a>
     <a href="./constancia.html" class="menu-option">Constancia</a>
     <a href="./ListadoAlumno.php" class="menu-option">Listado Alumnos</a>
-    <a href="../php/CerrarSesionPersonal.php" class="menu-option">Cerrar sesion</a>
+    <a href="../php/CerrarSesionJefe.php" class="menu-option">Cerrar sesion</a>
     <!-- Agrega más opciones según sea necesario -->
 </div>
 

@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+// Verificar si el alumno ha iniciado sesión
+if (!isset($_SESSION['ID'])) {
+    // Si no ha iniciado sesión, redirigirlo al formulario de inicio de sesión
+    header("Location: ../Modulos Jefe Area/LogInJefe.php");
+    exit;
+}
+
 // Verificar si se recibió la matrícula del alumno a eliminar
 if (isset($_GET['matricula'])) {
     // Recoger la matrícula del alumno

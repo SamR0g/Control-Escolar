@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Verificar si el alumno ha iniciado sesión
+if (!isset($_SESSION['ID'])) {
+    // Si no ha iniciado sesión, redirigirlo al formulario de inicio de sesión
+    header("Location: ../Modulos Personal/LogInPersonal.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
