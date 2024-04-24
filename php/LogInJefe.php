@@ -17,13 +17,13 @@ if (mysqli_num_rows($consulta) > 0) {
     // Verificar la contraseña
     if (password_verify($Password, $hashAlmacenado)) {
         $_SESSION['ID'] = $id;
-        header("location: ../Modulos Jefe/PanelJefe.php");
+        header("location: ../Modulos Jefe Area/PanelJefe.php");
         exit;
     } else {
         echo '
         <script>
             alert("Verifique los datos");
-            window.location = "../Modulos Jefe/LogInJefe.php";
+            window.location = "../Modulos Jefe Area/LogInJefe.php";
         </script>
         ';
         exit;
@@ -32,7 +32,7 @@ if (mysqli_num_rows($consulta) > 0) {
     echo '
     <script>
         alert("Verifique los datos");
-        window.location = "../Modulos Jefe/LogInJefe.php";
+        window.location = "../Modulos Jefe Area/LogInJefe.php";
     </script>
     ';
     exit;
