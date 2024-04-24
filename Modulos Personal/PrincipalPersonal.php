@@ -29,8 +29,8 @@ if ($result->num_rows > 0) {
     // Mostrar datos obtenidos de la consulta
     while ($row = $result->fetch_assoc()) {
         $nombre = $row["NombreCompleto"];
-        $edad = $row["ApellidoMaterno"];
-        $semestre = $row["ApellidoPaterno"];
+        $apellidom = $row["ApellidoMaterno"];
+        $apellidop = $row["ApellidoPaterno"];
         $grupo = $row["Turno"];
         $turno = $row["CorreoElectronico"];
     }
@@ -57,7 +57,6 @@ $conn->close();
 </div>
 <div class="menu-options" id="menuOptions">
     <a href="./CapturaCalificaciones.php" class="menu-option">Captura de calificaciones</a>
-    <a href="./constancia.html" class="menu-option">Constancia</a>
     <a href="./ListadoAlumno.php" class="menu-option">Listado Alumnos</a>
     <a href="../php/CerrarSesionPersonal.php" class="menu-option">Cerrar sesion</a>
     <!-- Agrega más opciones según sea necesario -->
@@ -66,21 +65,21 @@ $conn->close();
 <div class="container">
     <div class="panel">
         <div class="info">
-            <h2>Información del Alumno</h2>
-            <p><strong>Nombre:</strong> <?php echo $nombre; ?></p>
-            <p><strong>Apellidos:</strong> <?php echo $edad; ?></p>
+            <h2>Información del Personal</h2>
+           
+            <p><strong>Nombre:</strong> <?php echo $nombre . ' ' . $apellidop . ' ' . $apellidom; ?></p>
             <!-- Añade más datos según sea necesario -->
         </div>
     </div>
     <div class="panel">
         <div class="academic">
-            <h2>Información Académica</h2>
-            <p><strong>Turno:</strong> <?php echo $turno; ?></p>
+            <h2>Información Personal</h2>
+            <p><strong>Correo:</strong> <?php echo $turno; ?></p>
             <!-- Añade más datos según sea necesario -->
         </div>
     </div>
 </div>
-
+ 
 <script src="../js/Menu.js"></script>
 </body>
 </html>

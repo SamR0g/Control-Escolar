@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 $id_alumno = $_SESSION['Matricula'];
 
 // Consulta SQL para obtener la información del alumno
-$sql = "SELECT NombreCompleto, Edad, Semestre, Grupo, Turno FROM alumnos WHERE Matricula = $id_alumno"; 
+$sql = "SELECT NombreCompleto, Edad, Semestre, Grupo, Turno,CorreoElectronico,CURP,Matricula,ApellidoPaterno,ApellidoMaterno,periodo_escolar FROM alumnos WHERE Matricula = $id_alumno"; 
 
 $result = $conn->query($sql);
 
@@ -33,6 +33,12 @@ if ($result->num_rows > 0) {
         $semestre = $row["Semestre"];
         $grupo = $row["Grupo"];
         $turno = $row["Turno"];
+        $correo=$row["CorreoElectronico"];
+        $matricula=$row["Matricula"];
+        $CURP=$row["CURP"];
+        $apellidop=$row["ApellidoPaterno"];
+        $apellidom=$row["ApellidoMaterno"];
+        $Gen=$row["periodo_escolar"];
     }
 } else {
     echo "No se encontraron resultados.";
@@ -59,7 +65,7 @@ $conn->close();
     <a href="Boleta.php" class="menu-option">Boleta</a>
     <a href="ConsultarHorario.php" class="menu-option">Horario</a>
     <a href="Kardex.php" class="menu-option">Kardex</a>
-    <a href="../php/CerrarSsionAlumno.php" class="menu-option">Cerrar sesion</a>
+    <a href="../php/CerrarSesionAlumno.php" class="menu-option">Cerrar sesion</a>
     <!-- Agrega más opciones según sea necesario -->
 </div>
 
@@ -67,8 +73,11 @@ $conn->close();
     <div class="panel">
         <div class="info">
             <h2>Información del Alumno</h2>
-            <p><strong>Nombre:</strong> <?php echo $nombre; ?></p>
+            <p><strong>Nombre:</strong> <?php echo $nombre . ' ' . $apellidop . ' ' . $apellidom; ?></p>
+            <p><strong>CURP:</strong> <?php echo $CURP; ?></p>
+            <p><strong>Matricula:</strong> <?php echo $matricula; ?></p>
             <p><strong>Edad:</strong> <?php echo $edad; ?> años</p>
+            
             <!-- Añade más datos según sea necesario -->
         </div>
     </div>
@@ -78,6 +87,8 @@ $conn->close();
             <p><strong>Semestre:</strong> <?php echo $semestre; ?></p>
             <p><strong>Grupo:</strong> <?php echo $grupo; ?></p>
             <p><strong>Turno:</strong> <?php echo $turno; ?></p>
+            <p><strong>Generacion:</strong> <?php echo $Gen; ?></p>
+            <p><strong>Correo:</strong> <?php echo $correo; ?></p>
             <!-- Añade más datos según sea necesario -->
         </div>
     </div>
