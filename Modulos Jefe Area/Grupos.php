@@ -78,53 +78,58 @@
         $password = ""; // Cambia esto por tu contraseña de MySQL
         $dbname = "controlescolar"; // Cambia esto por el nombre de tu base de datos
 
-        // Conexión a la base de datos
+        // Crear conexión a la base de datos
         $conn = new mysqli($servername, $username, $password, $dbname);
+        // Verificar conexión
         if ($conn->connect_error) {
             die("Error de conexión: " . $conn->connect_error);
         }
+
+        // Establecer codificación UTF-8
+        $conn->set_charset("utf8mb4");
+
         // Si se hace clic en el botón de realizar sorteo
         if (isset($_POST['sorteo'])) {
             // Realizar el sorteo
-            $grupos = range('A', 'J');
-            $grupos_asignados = array();
-            // Inicializar el contador para cada grupo
-            foreach ($grupos as $grupo) {
-                $grupos_asignados[$grupo] = 0;
-            }
-            shuffle($grupos);
-            $sql = "SELECT Matricula FROM alumnos ORDER BY RAND()";
-            $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc()) {
-                $grupo_aleatorio = array_shift($grupos);
-                if (!$grupo_aleatorio) {
-                    break; // Si se agotan los grupos, salir del bucle
+            $sql_grupos = "SELECT id_grupo FROM grupos";
+            $result_grupos = $conn->query($sql_grupos);
+            $grupos = array();
+            if ($result_grupos->num_rows > 0) {
+                while($row = $result_grupos->fetch_assoc()) {
+                    $grupos[] = $row['id_grupo'];
                 }
+            }
+            $sql_alumnos = "SELECT Matricula FROM alumnos ORDER BY RAND()";
+            $result_alumnos = $conn->query($sql_alumnos);
+            $i = 0;
+            while ($row = $result_alumnos->fetch_assoc()) {
+                $grupo_aleatorio = $grupos[$i % count($grupos)];
                 $matricula = $row['Matricula'];
-                $sql_update = "UPDATE alumnos SET Grupo='$grupo_aleatorio' WHERE Matricula='$matricula'";
+                $sql_update = "UPDATE alumnos SET id_grupo='$grupo_aleatorio' WHERE Matricula='$matricula'";
                 $conn->query($sql_update);
-                // Incrementar el contador del grupo asignado
-                $grupos_asignados[$grupo_aleatorio]++;
+                $i++;
             }
             echo "<p style='text-align:center;'>Sorteo realizado correctamente.</p>";
         }
 
         // Consulta SQL para obtener los datos de los alumnos
-        $sql = "SELECT Matricula, CONCAT(NombreCompleto, ' ', ApellidoPaterno, ' ', ApellidoMaterno) AS NombreCompleto, Grupo FROM alumnos";
+        $sql = "SELECT alumnos.Matricula, CONCAT(alumnos.NombreCompleto, ' ', alumnos.ApellidoPaterno, ' ', alumnos.ApellidoMaterno) AS NombreCompleto, alumnos.id_grupo, grupos.Turno FROM alumnos INNER JOIN grupos ON alumnos.id_grupo = grupos.id_grupo";
         $result = $conn->query($sql);
 
         // Verificar si se obtuvieron resultados
         if ($result->num_rows > 0) {
             // Mostrar los datos de los alumnos en la tabla
-            while($row = $result->fetch_assoc()) {
+            while($row = $result->fetch_assoc()) { 
                 echo "<tr>";
                 echo "<td>".$row['Matricula']."</td>";
                 echo "<td>".$row['NombreCompleto']."</td>";
-                echo "<td>".$row['Grupo']."</td>";
-                echo "<td>".($row['Matricula'] % 2 == 0 ? 'Mañana' : 'Tarde')."</td>";
+                echo "<td>".$row['id_grupo']."</td>";
+                echo "<td>".$row['Turno']."</td>"; // Mostrar el turno registrado en la base de datos
                 // Calcular los cupos disponibles
-                $grupo_actual = $row['Grupo'];
-                $cupos_ocupados = $grupos_asignados[$grupo_actual] ?? 0;
+                $grupo_actual = $row['id_grupo'];
+                $sql_cupos = "SELECT COUNT(*) AS total FROM alumnos WHERE id_grupo='$grupo_actual'";
+                $result_cupos = $conn->query($sql_cupos);
+                $cupos_ocupados = $result_cupos->fetch_assoc()['total'];
                 $cupos_disponibles = 30 - $cupos_ocupados;
                 echo "<td>".$cupos_disponibles."</td>";
                 echo "</tr>";

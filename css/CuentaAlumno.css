@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20220101/pngtree-minimalist-desktop-wallpaper-landscape-vector-illustration-moon-light-night-mountain-background-image_942586.jpg');
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5WuSqv8WAJzfRGt1x2G3XUhEBx0dL3T1USJhiGU-7Wg&s');
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
@@ -9,24 +9,26 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    color: #fff; /* Color del texto claro para contrastar con el fondo oscuro */
 }
 
 .container {
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente negro */
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Sombra suave */
     padding: 20px;
-    width: 400px; /* Ancho ajustado a 400px */
+    width: 400px;
     text-align: center;
 }
 
 h2 {
-    color: #333;
+    color: #fff; /* Color de título claro */
 }
 
 label {
     display: block;
     margin-top: 10px;
+    color: #fff; /* Color de texto claro para los labels */
 }
 
 input {
@@ -39,12 +41,12 @@ input {
 
 button {
     background-color: #4caf50;
-    color: white;
+    color: #fff;
     padding: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-bottom: 20px; /* Ajuste de margen inferior */
+    margin-bottom: 20px;
 }
 
 button:hover {
@@ -53,8 +55,8 @@ button:hover {
 
 #registroExitoso {
     display: none;
-    background-color: #4caf50;
-    color: white;
+    background-color: rgba(76, 175, 80, 0.9); /* Fondo semitransparente verde */
+    color: #fff;
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;
@@ -63,7 +65,7 @@ button:hover {
 #circuloImagen {
     width: 100px;
     height: 100px;
-    background-color: #4caf50;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente negro */
     border-radius: 50%;
     display: flex;
     align-items: center;

@@ -51,8 +51,8 @@ $conn->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Alumno</title>
-    <link rel="stylesheet" href="../css/Panel.Alumno.css">
+    <title>Menú Lateral con Css</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <header class="header">
@@ -63,9 +63,10 @@ $conn->close();
             <div class="logo">
             </div>
             <nav class="menu">
-                <a href="https://sites.google.com/bycenj.edu.mx/bycenj/nosotros">Nosotros</a>
-                <a href="https://sites.google.com/bycenj.edu.mx/bycenj/inicio">Blog</a>                
-                <a href="">Contacto</a>
+                <a href="#">Inicio</a>
+                <a href="#">Nosotros</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacto</a>
             </nav>
         </div>
     </header>
@@ -75,10 +76,12 @@ $conn->close();
 <div class="container-menu">
     <div class="cont-menu">
         <nav>
-            <a href="./Boleta.php">Boleta</a>
-            <a href="./ConsultarHorario.php">Horario</a>
-            <a href="./Kardex.php">Kardex</a>
-            <a href="../php/CerrarSesionAlumno.php">Cerrar sesion</a>
+            <a href="#">Portafolio</a>
+            <a href="#">Servicios</a>
+            <a href="#">Suscribirse</a>
+            <a href="#">Facebook</a>
+            <a href="#">Youtube</a>
+            <a href="#">Instagram</a>
         </nav>
         <label for="btn-menu">✖️</label>
     </div>

@@ -8,7 +8,7 @@ if (!isset($_SESSION['Matricula'])) {
     exit();
 }
 
-// Conexión a la base de datos (ajusta los valores según tu configuración)
+// Conexión a la base de datos
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -21,84 +21,159 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-// Consulta SQL para obtener la información del alumno basada en el usuario autenticado
+// Establecer el conjunto de caracteres a utf8 para manejar los acentos correctamente
+$conn->set_charset("utf8");
+
+// Consulta SQL para obtener la información del alumno
 $usuario_id = $_SESSION['Matricula'];
-$alumnoSql = "SELECT * FROM alumnos WHERE Matricula = $usuario_id"; // Ajusta la consulta según tu estructura de base de datos
-$alumnoResult = $conn->query($alumnoSql);
+$alumnoSql = "SELECT CONCAT(alumnos.NombreCompleto, ' ', alumnos.ApellidoPaterno, ' ', alumnos.ApellidoMaterno) AS NombreCompleto, 
+                     alumnos.id_grupo, grupos.semestre, grupos.nombre_grupo, grupos.turno, grupos.Aula 
+              FROM alumnos 
+              INNER JOIN grupos ON alumnos.id_grupo = grupos.id_grupo
+              WHERE alumnos.Matricula = ?";
+$stmt = $conn->prepare($alumnoSql);
+$stmt->bind_param("s", $usuario_id);
+$stmt->execute();
+$alumnoResult = $stmt->get_result();
+$alumnoRow = $alumnoResult->fetch_assoc();
 
-// Consulta SQL para obtener todas las materias disponibles
-$materiasSql = "SELECT DISTINCT NombreMateria FROM horario"; // Ajusta la consulta según tu estructura de base de datos
-$materiasResult = $conn->query($materiasSql);
-
-// Mostrar la información del alumno
-if ($alumnoResult->num_rows > 0 && $materiasResult->num_rows > 0) {
-    $alumnoRow = $alumnoResult->fetch_assoc();
+// Consulta SQL para obtener los horarios del alumno
+$horarioSql = "SELECT materias.nombre_materia, horario.docente, horario.Lunes, horario.Martes, horario.Miércoles, horario.Jueves, horario.Viernes, horario.Sábado 
+               FROM horario 
+               INNER JOIN materias ON horario.id_materia = materias.id_materia
+               WHERE horario.id_grupo = ?";
+$stmt = $conn->prepare($horarioSql);
+$stmt->bind_param("i", $alumnoRow['id_grupo']);
+$stmt->execute();
+$horarioResult = $stmt->get_result();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información del Alumno</title>
-    <link rel="stylesheet" href="../css/ConsultarHorario.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ecf0f1;
+        }
+
+        #contenedor {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #informacion-alumno {
+            text-align: left;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        #informacion-alumno h2 {
+            color: #3498db;
+        }
+
+        #informacion-alumno p {
+            margin: 5px 0;
+        }
+
+        #foto-alumno {
+            text-align: center;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        #foto-alumno img {
+            width: 150px;
+            border-radius: 50%;
+        }
+
+        #horario {
+            display: grid;
+            grid-template-columns: 2fr 2fr repeat(6, 1fr);
+            gap: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .materia, .docente, .clase {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
     <div id="contenedor">
         <div id="informacion-alumno">
             <h2>Información del Alumno</h2>
-            <p>Nombre: <?php echo $alumnoRow["NombreCompleto"]; ?></p>
-            <p>Semestre: <?php echo $alumnoRow["Semestre"]; ?></p>
-            <p>Grupo: <?php echo $alumnoRow["Grupo"]; ?></p>
+            <p>Nombre: <?php echo htmlspecialchars($alumnoRow["NombreCompleto"]); ?></p>
+            <p>Semestre: <?php echo htmlspecialchars($alumnoRow["semestre"]); ?></p>
+            <p>Grupo: <?php echo htmlspecialchars($alumnoRow["nombre_grupo"]); ?></p>
+            <p>Turno: <?php echo htmlspecialchars($alumnoRow["turno"]); ?></p>
+            <p>Aula: <?php echo htmlspecialchars($alumnoRow["Aula"]); ?></p>
         </div>
 
         <div id="foto-alumno">
-            <img src="../Imagenes/Persona.png" alt="Foto del alumno">
+            <img src="../php/foto.php" alt="Foto del alumno">
         </div>
 
         <div id="horario">
-            <div class="materia">Materia</div>
-            <div class="dia-semana">Lunes</div>
-            <div class="dia-semana">Martes</div>
-            <div class="dia-semana">Miércoles</div>
-            <div class="dia-semana">Jueves</div>
-            <div class="dia-semana">Viernes</div>
-            <div class="dia-semana">Sábado</div>
+            <div class="header">Materia</div>
+            <div class="header">Docente</div>
+            <div class="header">Lunes</div>
+            <div class="header">Martes</div>
+            <div class="header">Miércoles</div>
+            <div class="header">Jueves</div>
+            <div class="header">Viernes</div>
+            <div class="header">Sábado</div>
 
             <?php
-            // Mostrar todas las materias disponibles
-            while ($materiaRow = $materiasResult->fetch_assoc()) {
-                echo '<div class="materia">' . $materiaRow["NombreMateria"] . '</div>';
-
-                // Consulta SQL para obtener los horarios de la materia actual
-                $horariosMateriaSql = "SELECT * FROM horario WHERE NombreMateria = '" . $materiaRow["NombreMateria"] . "'";
-                $horariosMateriaResult = $conn->query($horariosMateriaSql);
-
-                if ($horariosMateriaResult->num_rows > 0) {
-                    $horarioRow = $horariosMateriaResult->fetch_assoc(); // Tomar el primer registro encontrado
-
-                    // Recorrer los días de la semana
-                    $diasSemana = array("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
-                    foreach ($diasSemana as $dia) {
-                        echo '<div class="clase">' . $horarioRow[$dia] . '</div>'; // Mostrar la hora de la clase para este día
-                    }
-                } else {
-                    // Si no se encontraron horarios para esta materia, mostrar espacios en blanco para cada día de la semana
-                    for ($i = 0; $i < 6; $i++) {
-                        echo '<div class="clase"></div>';
-                    }
+            // Mostrar los horarios
+            if ($horarioResult->num_rows > 0) {
+                while ($horarioRow = $horarioResult->fetch_assoc()) {
+                    echo '<div class="materia">' . htmlspecialchars($horarioRow["nombre_materia"]) . '</div>';
+                    echo '<div class="docente">' . htmlspecialchars($horarioRow["docente"]) . '</div>';
+                    echo '<div class="clase">' . htmlspecialchars($horarioRow["Lunes"]) . '</div>';
+                    echo '<div class="clase">' . htmlspecialchars($horarioRow["Martes"]) . '</div>';
+                    echo '<div class="clase">' . htmlspecialchars($horarioRow["Miércoles"]) . '</div>';
+                    echo '<div class="clase">' . htmlspecialchars($horarioRow["Jueves"]) . '</div>';
+                    echo '<div class="clase">' . htmlspecialchars($horarioRow["Viernes"]) . '</div>';
+                    echo '<div class="clase">' . htmlspecialchars($horarioRow["Sábado"]) . '</div>';
+                }
+            } else {
+                echo '<div class="materia">No se encontraron horarios para mostrar</div>';
+                echo '<div class="docente"></div>';
+                for ($i = 0; $i < 6; $i++) {
+                    echo '<div class="clase"></div>';
                 }
             }
             ?>
-
         </div>
     </div>
 </body>
 </html>
-<?php
-} else {
-    echo "No se encontraron resultados para el usuario autenticado.";
-}
 
+<?php
 // Cerrar la conexión
 $conn->close();
 ?>

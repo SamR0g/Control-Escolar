@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 $id_alumno = $_SESSION['ID'];
 
 // Consulta SQL para obtener la información del alumno
-$sql = "SELECT NombreCompleto, ApellidoPaterno, ApellidoMaterno, Turno, CorreoElectronico FROM coordinador WHERE ID = $id_alumno"; 
+$sql = "SELECT NombreCompleto, ApellidoPaterno, ApellidoMaterno, Turno, CorreoElectronico,ID FROM coordinador WHERE ID = $id_alumno"; 
 
 $result = $conn->query($sql);
 
@@ -28,6 +28,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Mostrar datos obtenidos de la consulta
     while ($row = $result->fetch_assoc()) {
+        $ID = $row["ID"];
         $nombre = $row["NombreCompleto"];
         $apellidom = $row["ApellidoMaterno"];
         $apellidop = $row["ApellidoPaterno"];
@@ -48,31 +49,50 @@ $conn->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control Coordinador</title>
+    <title>coordinador Area</title>
     <link rel="stylesheet" href="../css/Panel.Alumno.css">
 </head>
 <body>
-
-<div class="menu" onclick="toggleMenu()">
-    <img src="../Imagenes/LogoBycenj.png" alt="Menú"> <!-- Cambia "tu_imagen_del_menu.png" por la ruta de tu imagen -->
+    <header class="header">
+        <div class="container">
+        <div class="btn-menu">
+            <label for="btn-menu">☰</label>
+        </div>
+            <div class="logo">
+            </div>
+            <nav class="menu">
+                <a href="#">Inicio</a>
+                <a href="#">Nosotros</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacto</a>
+            </nav>
+        </div>
+    </header>
+    <div class="capa"></div>
+<!--  --------------->
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+    <div class="cont-menu">
+        <nav>
+                <a href="./CrearCuenta.php">Crear Cuenta Alumno</a>
+                <a href="./CrearCuentaPersonal.php">Crear Cuenta Personal</a>
+                <a href="./CrearGrupo.php">Crear Grupo</a>
+                <a href="./CrearHorario.php">Crear Horario</a>
+                <a href="./CRUD.php">Listado Alumnos</a>
+                <a href="./Grupos.php">Asignar Grupos</a>
+                <a href="./CapturaCalificacion.php">Captura Calificaciones</a>
+                <a href="../php/CerrarSesionJefe.php">Cerrar Sesion</a>
+        </nav>
+        <label for="btn-menu">✖️</label>
+    </div>
 </div>
-<div class="menu-options" id="menuOptions">
-    <a href="../Modulos Personal/CapturaCalificaciones.php" class="menu-option">Captura de calificaciones</a>
-    <a href="./Grupos.php" class="menu-option">Asignar grupos</a>
-    <a href="./CrearHorario.php" class="menu-option">Crear Horario</a>
-    <a href="./CRUD.php" class="menu-option">Listado Alumnos</a>
-    <a href="./CrearCuentaPersonal.php" class="menu-option">Crear cuenta Personal</a>
-    <a href="./CrearCuenta.php" class="menu-option">Crear cuenta alumno</a>
-    <a href="../php/CerrarSesionJefe.php" class="menu-option">Cerrar sesion</a>
-    <!-- Agrega más opciones según sea necesario -->
-</div>
 
-<div class="container">
+<div class="container-info">
     <div class="panel">
         <div class="info">
-            <h2>Información del Coordinador</h2>
+            <h2>Información del Personal</h2>
             <p><strong>Nombre:</strong> <?php echo $nombre . ' ' . $apellidop . ' ' . $apellidom; ?></p>
+            <p><strong>ID:</strong> <?php echo $ID; ?></p>
             
             <!-- Añade más datos según sea necesario -->
         </div>
@@ -80,12 +100,11 @@ $conn->close();
     <div class="panel">
         <div class="academic">
             <h2>Información Personal</h2>
+            <p><strong>Turno:</strong> <?php echo $grupo; ?></p>
             <p><strong>Correo:</strong> <?php echo $turno; ?></p>
             <!-- Añade más datos según sea necesario -->
         </div>
     </div>
 </div>
-
-<script src="../js/Menu.js"></script>
 </body>
 </html>

@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 $id_alumno = $_SESSION['ID'];
 
 // Consulta SQL para obtener la información del alumno
-$sql = "SELECT NombreCompleto, ApellidoPaterno, ApellidoMaterno, Turno, CorreoElectronico FROM personal WHERE ID = $id_alumno"; 
+$sql = "SELECT NombreCompleto, ApellidoPaterno, ApellidoMaterno, Turno, CorreoElectronico,ID FROM personal WHERE ID = $id_alumno"; 
 
 $result = $conn->query($sql);
 
@@ -28,6 +28,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Mostrar datos obtenidos de la consulta
     while ($row = $result->fetch_assoc()) {
+        $ID = $row["ID"];
         $nombre = $row["NombreCompleto"];
         $apellidom = $row["ApellidoMaterno"];
         $apellidop = $row["ApellidoPaterno"];
@@ -46,40 +47,60 @@ $conn->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control Personal</title>
+    <title>Personal Control Escolar</title>
     <link rel="stylesheet" href="../css/Panel.Alumno.css">
 </head>
 <body>
+    <header class="header">
+        <div class="container">
+        <div class="btn-menu">
+            <label for="btn-menu">☰</label>
+        </div>
+            <div class="logo">
+            </div>
+            <nav class="menu">
+                <a href="#">Inicio</a>
+                <a href="#">Nosotros</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacto</a>
+            </nav>
+        </div>
+    </header>
+    <div class="capa"></div>
+<!--  --------------->
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+    <div class="cont-menu">
+        <nav>
+            <a href="./CapturaCalificaciones.php">CapturaCalificaciones</a>
+            <a href="./ConcentradoCalificaciones.php">ConcentradoCalificaciones</a>
+            <a href="./FormatoAsistencia.php">Formato Asistencia</a>
+            <a href="./ListadoAlumno.php">Listado Alumnos</a>
+            <a href="../php/CerrarSesionPersonal.php">Cerrar Sesion</a>
 
-<div class="menu" onclick="toggleMenu()">
-    <img src="../Imagenes/LogoBycenj.png" alt="Menú"> <!-- Cambia "tu_imagen_del_menu.png" por la ruta de tu imagen -->
-</div>
-<div class="menu-options" id="menuOptions">
-    <a href="./CapturaCalificaciones.php" class="menu-option">Captura de calificaciones</a>
-    <a href="./ListadoAlumno.php" class="menu-option">Listado Alumnos</a>
-    <a href="../php/CerrarSesionPersonal.php" class="menu-option">Cerrar sesion</a>
-    <!-- Agrega más opciones según sea necesario -->
+        </nav>
+        <label for="btn-menu">✖️</label>
+    </div>
 </div>
 
-<div class="container">
+<div class="container-info">
     <div class="panel">
         <div class="info">
             <h2>Información del Personal</h2>
-           
             <p><strong>Nombre:</strong> <?php echo $nombre . ' ' . $apellidop . ' ' . $apellidom; ?></p>
+            <p><strong>ID:</strong> <?php echo $ID; ?></p>
+            
             <!-- Añade más datos según sea necesario -->
         </div>
     </div>
     <div class="panel">
         <div class="academic">
             <h2>Información Personal</h2>
+            <p><strong>Turno:</strong> <?php echo $grupo; ?></p>
             <p><strong>Correo:</strong> <?php echo $turno; ?></p>
             <!-- Añade más datos según sea necesario -->
         </div>
     </div>
 </div>
- 
-<script src="../js/Menu.js"></script>
 </body>
 </html>

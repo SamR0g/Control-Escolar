@@ -16,15 +16,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
-$conn->set_charset("utf8"); // Configura la codificación de caracteres a UTF-8
 
-$sql_grupos = "SELECT DISTINCT g.id_grupo, g.nombre_grupo FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo";
+$sql_grupos = "SELECT DISTINCT id_grupo FROM alumnos";
 $result_grupos = $conn->query($sql_grupos);
 
 $grupos = array();
 if ($result_grupos->num_rows > 0) {
     while($row = $result_grupos->fetch_assoc()) {
-        $grupos[] = $row;
+        $grupos[] = $row['id_grupo'];
     }
 }
 
@@ -41,19 +40,19 @@ if ($result_materias->num_rows > 0) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['matricula'])) {
         $matricula = $_POST['matricula'];
-        $sql_alumnos = "SELECT a.Matricula, g.nombre_grupo FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo WHERE a.Matricula = '$matricula'";
+        $sql_alumnos = "SELECT Matricula, id_grupo FROM alumnos WHERE Matricula = '$matricula'";
     } elseif (isset($_POST['grupo'])) {
         $grupo_seleccionado = $_POST['grupo'];
         if ($grupo_seleccionado == "Todos") {
-            $sql_alumnos = "SELECT a.Matricula, g.nombre_grupo FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo";
+            $sql_alumnos = "SELECT Matricula, id_grupo FROM alumnos";
         } else {
-            $sql_alumnos = "SELECT a.Matricula, g.nombre_grupo FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo WHERE g.id_grupo = '$grupo_seleccionado'";
+            $sql_alumnos = "SELECT Matricula, id_grupo FROM alumnos WHERE id_grupo = '$grupo_seleccionado'";
         }
     } else {
-        $sql_alumnos = "SELECT a.Matricula, g.nombre_grupo FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo";
+        $sql_alumnos = "SELECT Matricula, id_grupo FROM alumnos";
     }
 } else {
-    $sql_alumnos = "SELECT a.Matricula, g.nombre_grupo FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo";
+    $sql_alumnos = "SELECT Matricula, id_grupo FROM alumnos";
 }
 
 $result_alumnos = $conn->query($sql_alumnos);
@@ -90,7 +89,7 @@ $conn->close();
                 <select name="grupo" id="grupo">
                     <option value="Todos">Todos</option>
                     <?php foreach ($grupos as $grupo): ?>
-                        <option value="<?php echo $grupo['id_grupo']; ?>" <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['grupo']) && $_POST['grupo'] == $grupo['id_grupo']) echo "selected"; ?>><?php echo $grupo['nombre_grupo']; ?></option>
+                        <option value="<?php echo $grupo; ?>" <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['grupo']) && $_POST['grupo'] == $grupo) echo "selected"; ?>><?php echo $grupo; ?></option>
                     <?php endforeach; ?>
                 </select>
                 <button type="submit">Mostrar</button>
@@ -114,7 +113,7 @@ $conn->close();
                     <?php foreach ($alumnos as $alumno): ?>
                         <tr>
                             <td><?php echo $alumno['Matricula']; ?></td>
-                            <td><?php echo $alumno['nombre_grupo']; ?></td>
+                            <td><?php echo $alumno['id_grupo']; ?></td>
                             <?php foreach ($materias as $materia): ?>
                                 <td><?php echo $materia['codigo_materia']; ?></td>
                                 <td><input type="number" name="calificaciones[<?php echo $alumno['Matricula']; ?>][<?php echo $materia['codigo_materia']; ?>]" min="0" max="100" required></td>
