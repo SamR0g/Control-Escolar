@@ -27,8 +27,11 @@ $conn->set_charset("utf8");
 // Obtener la matrícula del usuario desde la sesión
 $matricula = $_SESSION['Matricula'];
 
+// Variable para almacenar mensajes
+$messages = [];
+
 // Consulta para obtener los datos del alumno, el semestre y el grupo
-$sql = "SELECT CONCAT(alumnos.NombreCompleto, ' ', alumnos.ApellidoPaterno, ' ', alumnos.ApellidoMaterno) AS NombreCompleto, alumnos.id_grupo, grupos.nombre_grupo, grupos.Semestre, grupos.Turno
+$sql = "SELECT CONCAT(alumnos.NombreCompleto, ' ', alumnos.ApellidoPaterno, ' ', alumnos.ApellidoMaterno) AS NombreCompleto, alumnos.id_grupo, grupos.nombre_grupo, grupos.Semestre, grupos.Turno, alumnos.Foto
         FROM alumnos 
         JOIN grupos ON alumnos.id_grupo = grupos.id_grupo 
         WHERE alumnos.Matricula = '$matricula'";
@@ -41,6 +44,7 @@ if ($result->num_rows > 0) {
     $nombre_grupo = $row['nombre_grupo'];
     $grado_alumno = $row['Semestre'];
     $turno_alumno = $row['Turno'];
+    $foto_base64 = base64_encode($row['Foto']);
 
     // Consulta para obtener las calificaciones del alumno junto con el nombre de las materias
     $sql_calificaciones = "SELECT materias.nombre_materia AS Materia, calificaciones.calificacion AS Calificacion, calificaciones.asistencia AS Asistencia 
@@ -48,24 +52,64 @@ if ($result->num_rows > 0) {
                            JOIN materias ON calificaciones.id_materia = materias.id_materia 
                            WHERE calificaciones.Matricula = '$matricula'";
     $result_calificaciones = $conn->query($sql_calificaciones);
+
+    if ($result_calificaciones->num_rows == 0) {
+        $messages[] = "<div class='notification error'>No se encontraron calificaciones.</div>";
+    }
 } else {
     // No se encontró al alumno, puedes redirigirlo o mostrar un mensaje de error
-    echo "No se encontró al alumno.";
+    $messages[] = "<div class='notification error'>No se encontró al alumno.</div>";
 }
 
+// Cerramos la conexión después de usarla
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boleta de Calificaciones</title>
-<link rel="stylesheet" href="../css/BoletaBuena.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boleta de Calificaciones</title>
+    <style>
+        /* Estilo para evitar que la imagen se divida entre páginas */
+        .foto-alumno {
+            page-break-inside: avoid;
+        }
+        .notification {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .home-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .home-icon img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="./Boletac.css"> <!-- Mantenemos el enlace al archivo CSS -->
 </head>
 <body>
 
 <div class="container" id="printable">
+    <a href="./PrincipalAlumno.php" class="home-icon">
+        <img src="../Imagenes/Home.png" alt="Home">
+    </a>
     <div class="logo">
         <img src="../Imagenes/LogoBycenj.png" alt="Logo de la escuela">
     </div>
@@ -79,9 +123,14 @@ if ($result->num_rows > 0) {
             <p><strong>Turno:</strong> <?php echo htmlspecialchars($turno_alumno); ?></p>
         </div>
         <div class="foto-alumno">
-            <img src="../php/foto.php" alt="Foto del alumno">
+            <img src="data:image/jpeg;base64,<?php echo $foto_base64; ?>" alt="Foto del alumno">
         </div>
     </div>
+    <?php
+    foreach ($messages as $message) {
+        echo $message;
+    }
+    ?>
     <table>
         <thead>
             <tr>
@@ -100,22 +149,33 @@ if ($result->num_rows > 0) {
                             <td class='percentage-column'><span>" . htmlspecialchars($row_calificaciones["Asistencia"]) . "</span></td>
                           </tr>";
                 }
-            } else {
-                echo "<tr><td colspan='3'>No se encontraron calificaciones</td></tr>";
             }
             ?>
         </tbody>
     </table>
     <div class="button-container">
-        <button id="download-btn">Descargar</button>
-        <button id="print-btn">Imprimir</button>
+        <button id="download-btn" onclick="downloadPDF()">Descargar</button>
+        <button id="print-btn" onclick="printPage()">Imprimir</button>
     </div>
 </div>
 
-<script src="../js/Boleta.js"></script>
+<script>
+function printPage() {
+    var printableArea = document.getElementById('printable').innerHTML;
+    var originalDocument = document.body.innerHTML;
+    document.body.innerHTML = printableArea;
+    window.print();
+    document.body.innerHTML = originalDocument;
+}
+
+function downloadPDF() {
+    var printContents = document.getElementById('printable').innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+</script>
+
 </body>
 </html>
-
-<?php
-$conn->close();
-?>

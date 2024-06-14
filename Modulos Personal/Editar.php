@@ -62,7 +62,7 @@ if (isset($_GET['matricula'])) {
 <body>
     <div class="form-container">
         <h2>Editar Alumno</h2>
-        <form action="actualizar_alumno.php" method="POST" onsubmit="return confirm('¿Estás seguro de editar el alumno?');">
+        <form action="EditarAlumno.php" method="POST" onsubmit="return confirm('¿Estás seguro de editar el alumno?');">
             <input type="hidden" name="matricula" value="<?php echo $fila['Matricula']; ?>">
             <label for="nombreCompleto">Nombre Completo:</label>
             <input type="text" name="nombreCompleto" value="<?php echo $fila['NombreCompleto']; ?>" required><br>

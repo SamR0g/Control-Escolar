@@ -14,22 +14,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $semestre = $_POST["semestre"];
     $turno = $_POST["turno"];
     $periodoEscolar = $_POST["periodo_escolar"];
+    $aula = $_POST["aula"];
 
-    // Verificar si ya existe un grupo con el mismo nombre, semestre y turno
-    $verificarGrupo = $conexion->prepare("SELECT nombre_grupo FROM grupos WHERE nombre_grupo = ? AND semestre = ? AND turno = ?");
-    $verificarGrupo->bind_param("sis", $nombreGrupo, $semestre, $turno);
+    // Verificar si ya existe un grupo con el mismo nombre, semestre, turno y aula
+    $verificarGrupo = $conexion->prepare("SELECT nombre_grupo FROM grupos WHERE nombre_grupo = ? AND semestre = ? AND turno = ? AND aula = ?");
+    $verificarGrupo->bind_param("sisi", $nombreGrupo, $semestre, $turno, $aula);
     $verificarGrupo->execute();
     $verificarGrupo->store_result();
 
     if ($verificarGrupo->num_rows > 0) {
         // Grupo ya registrado, enviar mensaje de error en formato JSON
-        $mensaje = json_encode(array("error" => "Ya existe un grupo con el mismo nombre, semestre y turno."));
+        $mensaje = json_encode(array("error" => "Ya existe un grupo con el mismo nombre, semestre, turno y aula."));
         echo $mensaje;
         exit();
     }
 
     // Preparar la consulta SQL para insertar un nuevo registro en la tabla 'grupos'
-    $consulta = $conexion->prepare("INSERT INTO grupos (nombre_grupo, semestre, turno, periodo_escolar) VALUES (?, ?, ?, ?)");
+    $consulta = $conexion->prepare("INSERT INTO grupos (nombre_grupo, semestre, turno, Aula, periodo_escolar) VALUES (?, ?, ?, ?, ?)");
 
     // Verificar si la preparación de la consulta fue exitosa
     if ($consulta === false) {
@@ -37,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Vincular parámetros a la consulta preparada
-    $consulta->bind_param("siss", $nombreGrupo, $semestre, $turno, $periodoEscolar);
+    $consulta->bind_param("sisss", $nombreGrupo, $semestre, $turno, $aula, $periodoEscolar);
 
     // Ejecutar la consulta
     $resultado = $consulta->execute();

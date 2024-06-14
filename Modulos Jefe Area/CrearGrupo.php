@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crear Nuevo Grupo</title>
-  <link rel="stylesheet" href="../css/CrearGrupo.css">
+  <link rel="stylesheet" href="./Grupo.css">
   <style>
     /* Estilos para la notificación */
     .notification {
@@ -46,14 +46,17 @@
         <label for="turno">Turno:</label>
         <select id="turno" name="turno" required>
           <option value="">Seleccionar</option>
-          <option value="Mañana">Mañana</option>
-          <option value="Tarde">Tarde</option>
-          <option value="Noche">Noche</option>
+          <option value="Matutino">Matutino</option>
+          <option value="Vespertino">Vespertino</option>
         </select>
       </div>
       <div class="form-group">
         <label for="periodo_escolar">Periodo Escolar:</label>
         <input type="text" id="periodo_escolar" name="periodo_escolar" required>
+      </div>
+      <div class="form-group">
+        <label for="aula">Número de Aula:</label>
+        <input type="text" id="aula" name="aula" required>
       </div>
       <button type="submit">Crear Grupo</button>
     </form>
@@ -67,7 +70,7 @@
       var form = event.target;
       var formData = new FormData(form);
 
-      // Realizar la solicitud AJAX
+      // Realizar la solicitud AJAXX
       var xhr = new XMLHttpRequest();
       xhr.open(form.method, form.action, true);
       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");

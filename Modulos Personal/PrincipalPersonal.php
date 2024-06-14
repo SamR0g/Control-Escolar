@@ -58,16 +58,15 @@ $conn->close();
         </div>
             <div class="logo">
             </div>
-            <nav class="menu">
-                <a href="#">Inicio</a>
-                <a href="#">Nosotros</a>
-                <a href="#">Blog</a>
+             <nav class="menu">
+                <a href="https://sites.google.com/bycenj.edu.mx/bycenj/nosotros">Nosotros</a>
+                <a href="https://sites.google.com/bycenj.edu.mx/bycenj/inicio">Blog</a>      
                 <a href="#">Contacto</a>
             </nav>
         </div>
     </header>
     <div class="capa"></div>
-<!--  --------------->
+<!--  ---------------> 
 <input type="checkbox" id="btn-menu">
 <div class="container-menu">
     <div class="cont-menu">
@@ -76,7 +75,9 @@ $conn->close();
             <a href="./ConcentradoCalificaciones.php">ConcentradoCalificaciones</a>
             <a href="./FormatoAsistencia.php">Formato Asistencia</a>
             <a href="./ListadoAlumno.php">Listado Alumnos</a>
+            <a href="./FormatoEvaluacion.php">Formato Evaluacion</a>
             <a href="../php/CerrarSesionPersonal.php">Cerrar Sesion</a>
+            
 
         </nav>
         <label for="btn-menu">✖️</label>

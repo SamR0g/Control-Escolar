@@ -126,7 +126,7 @@ if (isset($_POST['confirmar'])) {
     <script>
         function cancelar() {
             // Redirigir de vuelta a la página principal
-            window.location.href = "CRUD.php";
+            window.location.href = "ListadoAlumno.php";
         }
     </script>
 </body>

@@ -61,9 +61,8 @@ $conn->close();
             <div class="logo">
             </div>
             <nav class="menu">
-                <a href="#">Inicio</a>
-                <a href="#">Nosotros</a>
-                <a href="#">Blog</a>
+                <a href="https://sites.google.com/bycenj.edu.mx/bycenj/nosotros">Nosotros</a>
+                <a href="https://sites.google.com/bycenj.edu.mx/bycenj/inicio">Blog</a>      
                 <a href="#">Contacto</a>
             </nav>
         </div>
@@ -78,6 +77,7 @@ $conn->close();
                 <a href="./CrearCuentaPersonal.php">Crear Cuenta Personal</a>
                 <a href="./CrearGrupo.php">Crear Grupo</a>
                 <a href="./CrearHorario.php">Crear Horario</a>
+                <a href="./CapturarMateria.php">Crear Materia</a>
                 <a href="./CRUD.php">Listado Alumnos</a>
                 <a href="./Grupos.php">Asignar Grupos</a>
                 <a href="./CapturaCalificacion.php">Captura Calificaciones</a>

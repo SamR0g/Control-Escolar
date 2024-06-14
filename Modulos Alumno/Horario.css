@@ -1,0 +1,75 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://e0.pxfuel.com/wallpapers/963/725/desktop-wallpaper-light-grey.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#contenedor {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#informacion-alumno {
+    text-align: left;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow: hidden; /* Evitar que el contenido flote sobre la imagen */
+}
+
+#informacion-alumno h2 {
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+#informacion-alumno p {
+    margin: 10px 0;
+}
+
+#foto-alumno {
+    margin-right: 20px; /* Agrego margen a la derecha para separar del contenido */
+    margin-top: 65px; /* Ajusto el margen superior */
+    float: left; /* Hago que la foto flote a la izquierda */
+}
+
+#foto-alumno img {
+    width: 120px; /* Reduzco el tamaño de la imagen */
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#horario {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+    text-align: center;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.materia, .docente, .clase {
+    background-color: #ecf0f1;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}

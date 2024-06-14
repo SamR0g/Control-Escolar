@@ -113,7 +113,9 @@
         }
 
         // Consulta SQL para obtener los datos de los alumnos
-        $sql = "SELECT alumnos.Matricula, CONCAT(alumnos.NombreCompleto, ' ', alumnos.ApellidoPaterno, ' ', alumnos.ApellidoMaterno) AS NombreCompleto, alumnos.id_grupo, grupos.Turno FROM alumnos INNER JOIN grupos ON alumnos.id_grupo = grupos.id_grupo";
+        $sql = "SELECT alumnos.Matricula, CONCAT(alumnos.NombreCompleto, ' ', alumnos.ApellidoPaterno, ' ', alumnos.ApellidoMaterno) AS NombreCompleto, grupos.nombre_grupo, grupos.Turno 
+                FROM alumnos 
+                INNER JOIN grupos ON alumnos.id_grupo = grupos.id_grupo";
         $result = $conn->query($sql);
 
         // Verificar si se obtuvieron resultados
@@ -123,14 +125,16 @@
                 echo "<tr>";
                 echo "<td>".$row['Matricula']."</td>";
                 echo "<td>".$row['NombreCompleto']."</td>";
-                echo "<td>".$row['id_grupo']."</td>";
+                echo "<td>".$row['nombre_grupo']."</td>";
                 echo "<td>".$row['Turno']."</td>"; // Mostrar el turno registrado en la base de datos
                 // Calcular los cupos disponibles
-                $grupo_actual = $row['id_grupo'];
-                $sql_cupos = "SELECT COUNT(*) AS total FROM alumnos WHERE id_grupo='$grupo_actual'";
+                $grupo_actual = $row['nombre_grupo'];
+                $turno = $row['Turno'];
+                $sql_cupos = "SELECT COUNT(*) AS total FROM alumnos WHERE id_grupo=(SELECT id_grupo FROM grupos WHERE nombre_grupo='$grupo_actual')";
                 $result_cupos = $conn->query($sql_cupos);
                 $cupos_ocupados = $result_cupos->fetch_assoc()['total'];
-                $cupos_disponibles = 30 - $cupos_ocupados;
+                $cupos_maximos = ($turno === 'Matutino') ? 32 : 37;
+                $cupos_disponibles = $cupos_maximos - $cupos_ocupados;
                 echo "<td>".$cupos_disponibles."</td>";
                 echo "</tr>";
             }

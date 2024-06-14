@@ -7,7 +7,7 @@ if(isset($_SESSION['Matricula'])){
   
 }
 ?>
-<link rel="stylesheet" href="../css/LogInAlumno.css">
+<link rel="stylesheet" href="./LogInAlumno.css">
 <div class="wrapper">
     <div class="logo">
         <img src="../Imagenes/LogoBycenj.png">

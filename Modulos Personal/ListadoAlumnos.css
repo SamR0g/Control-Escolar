@@ -1,47 +1,51 @@
-body {
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
     font-family: Arial, sans-serif;
     margin: 20px;
-}
-
-h2 {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/003/130/795/non_2x/abstract-white-minimalist-style-background-free-vector.jpg');
+    background-size: cover;
+  }
+  
+  h2 {
     color: #333;
     text-align: center;
-}
-
-table {
-    width: 90%; /* Reducir el ancho de la tabla */
-    margin: 20px auto; /* Centrar la tabla y aumentar los márgenes */
+  }
+  
+  table {
+    width: 90%;
+    margin: 20px auto;
     border-collapse: collapse;
-    border-spacing: 10px; /* Aumentar el espacio entre las celdas */
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    border-bottom: 2px solid #ddd; /* Aumentar el grosor de las líneas */
     padding: 12px;
     text-align: left;
-}
-
-th {
+  }
+  
+  th {
     background-color: #f2f2f2;
-}
-
-a {
+  }
+  
+  a {
     text-decoration: none;
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
     margin-right: 5px;
-}
-
-a:hover {
+  }
+  
+  a:hover {
     background-color: #45a049;
-}
-
-.add-btn {
+  }
+  
+  .add-btn {
     display: block;
     width: 150px;
     margin: 20px auto;
@@ -50,13 +54,13 @@ a:hover {
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
-}
-
-.add-btn:hover {
+  }
+  
+  .add-btn:hover {
     background-color: #45a049;
-}
-
-.edit-btn, .delete-btn {
+  }
+  
+  .edit-btn, .delete-btn {
     display: inline-block;
     padding: 8px 12px;
     background-color: #008CBA;
@@ -65,58 +69,58 @@ a:hover {
     border-radius: 5px;
     margin-right: 5px;
     text-decoration: none;
-}
-
-.edit-btn:hover, .delete-btn:hover {
+  }
+  
+  .edit-btn:hover, .delete-btn:hover {
     background-color: #005f7f;
-}
-
-#agregarAlumnoForm {
+  }
+  
+  #agregarAlumnoForm {
     display: none;
-    width: 90%; /* Reducir el ancho del formulario */
+    width: 90%;
     margin: 20px auto;
     padding: 20px;
     background-color: #f2f2f2;
     border-radius: 5px;
-}
-
-#agregarAlumnoForm h3 {
+  }
+  
+  #agregarAlumnoForm h3 {
     margin-top: 0;
-}
-
-#agregarAlumnoForm table {
-    width: 100%; /* Ajustar el ancho de la tabla dentro del formulario */
+  }
+  
+  #agregarAlumnoForm table {
+    width: 100%;
     border-collapse: collapse;
-    border-spacing: 10px; /* Aumentar el espacio entre las celdas */
-}
-
-#agregarAlumnoForm label {
+  }
+  
+  #agregarAlumnoForm label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-}
-
-#agregarAlumnoForm input[type="text"],
-#agregarAlumnoForm input[type="date"],
-#agregarAlumnoForm input[type="email"],
-#agregarAlumnoForm input[type="number"] {
+  }
+  
+  #agregarAlumnoForm input[type="text"],
+  #agregarAlumnoForm input[type="date"],
+  #agregarAlumnoForm input[type="email"],
+  #agregarAlumnoForm input[type="number"] {
     width: calc(100% - 22px);
-    padding: 12px; /* Aumentar el relleno para que los campos sean más visibles */
+    padding: 12px;
     margin-bottom: 20px;
-    border: 2px solid #ddd; /* Aplicar un borde */
+    border: 2px solid #ddd;
     border-radius: 5px;
-}
-
-#agregarAlumnoForm button {
+  }
+  
+  #agregarAlumnoForm button {
     width: 100%;
     background-color: #4CAF50;
     color: white;
-    padding: 12px 20px; /* Aumentar el relleno de los botones */
+    padding: 12px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-#agregarAlumnoForm button:hover {
+  }
+  
+  #agregarAlumnoForm button:hover {
     background-color: #45a049;
-}
+  }
+  

@@ -7,7 +7,7 @@ if(isset($_SESSION['ID'])){
   
 }
 ?>
-<link rel="stylesheet" href="../css/LogInJefe.css">
+<link rel="stylesheet" href="./LogInJefe.css">
 <div class="wrapper">
     <div class="logo">
         <img src="../Imagenes/LogoBycenj.png">

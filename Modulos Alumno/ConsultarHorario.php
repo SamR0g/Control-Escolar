@@ -54,87 +54,22 @@ $horarioResult = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información del Alumno</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ecf0f1;
-        }
-
-        #contenedor {
-            max-width: 1000px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        #informacion-alumno {
-            text-align: left;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-
-        #informacion-alumno h2 {
-            color: #3498db;
-        }
-
-        #informacion-alumno p {
-            margin: 5px 0;
-        }
-
-        #foto-alumno {
-            text-align: center;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-
-        #foto-alumno img {
-            width: 150px;
-            border-radius: 50%;
-        }
-
-        #horario {
-            display: grid;
-            grid-template-columns: 2fr 2fr repeat(6, 1fr);
-            gap: 10px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .header {
-            background-color: #3498db;
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .materia, .docente, .clase {
-            background-color: #ecf0f1;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="./Horario.css">
 </head>
 <body>
+    
     <div id="contenedor">
         <div id="informacion-alumno">
-            <h2>Información del Alumno</h2>
-            <p>Nombre: <?php echo htmlspecialchars($alumnoRow["NombreCompleto"]); ?></p>
-            <p>Semestre: <?php echo htmlspecialchars($alumnoRow["semestre"]); ?></p>
-            <p>Grupo: <?php echo htmlspecialchars($alumnoRow["nombre_grupo"]); ?></p>
-            <p>Turno: <?php echo htmlspecialchars($alumnoRow["turno"]); ?></p>
-            <p>Aula: <?php echo htmlspecialchars($alumnoRow["Aula"]); ?></p>
-        </div>
-
-        <div id="foto-alumno">
-            <img src="../php/foto.php" alt="Foto del alumno">
+            <div id="foto-alumno">
+                <img src="../php/foto.php" alt="Foto del alumno">
+            </div>
+            <div id="datos-alumno">
+                <h2>Información del Alumno</h2>
+                <p>Nombre: <?php echo htmlspecialchars($alumnoRow["NombreCompleto"]); ?></p>
+                <p>Semestre: <?php echo htmlspecialchars($alumnoRow["semestre"]); ?>  <?php echo htmlspecialchars($alumnoRow["nombre_grupo"]); ?></p>
+                <p>Turno: <?php echo htmlspecialchars($alumnoRow["turno"]); ?></p>
+                <p>Aula: <?php echo htmlspecialchars($alumnoRow["Aula"]); ?></p>
+            </div>
         </div>
 
         <div id="horario">
@@ -172,8 +107,3 @@ $horarioResult = $stmt->get_result();
     </div>
 </body>
 </html>
-
-<?php
-// Cerrar la conexión
-$conn->close();
-?>

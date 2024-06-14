@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost"; // Cambiar si es necesario
-$username = "root"; // Cambiar si es necesario
-$password = ""; // Cambiar si es necesario
-$dbname = "controlescolar"; // Cambiar al nombre de tu base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "controlescolar";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -11,6 +11,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
+
+// Establecer el conjunto de caracteres a utf8 para manejar los acentos correctamente
+$conn->set_charset("utf8");
 
 // Obtener grupos y materias para los selectores
 $grupos_sql = "SELECT id_grupo, nombre_grupo, turno FROM grupos";
@@ -24,7 +27,7 @@ $materias_result = $conn->query($materias_sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Alumnos</title>
+    <title>Generar Tabla de Evaluaciones</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -104,7 +107,7 @@ $materias_result = $conn->query($materias_sql);
     </style>
 </head>
 <body>
-    <h1>Reporte de Alumnos</h1>
+    <h1>Generar Tabla de Evaluaciones</h1>
     <form method="POST" action="">
         <label for="grupo">Grupo:</label>
         <select name="grupo" id="grupo" required>
@@ -126,9 +129,11 @@ $materias_result = $conn->query($materias_sql);
             }
             ?>
         </select>
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" required>
-        <input type="submit" value="Filtrar Alumnos">
+        <label for="fecha_inicio">Fecha Inicio:</label>
+        <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+        <label for="fecha_fin">Fecha Fin:</label>
+        <input type="date" id="fecha_fin" name="fecha_fin" required>
+        <input type="submit" value="Generar Tabla">
     </form>
 
     <div class="print-container" id="tabla-alumnos">
@@ -136,7 +141,8 @@ $materias_result = $conn->query($materias_sql);
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $grupo_id = $_POST["grupo"];
             $materia_id = $_POST["materia"];
-            $fecha = $_POST["fecha"];
+            $fecha_inicio = $_POST["fecha_inicio"];
+            $fecha_fin = $_POST["fecha_fin"];
 
             // Obtener información del grupo y la materia seleccionados
             $grupo_sql = "SELECT nombre_grupo, turno FROM grupos WHERE id_grupo = $grupo_id";
@@ -150,31 +156,26 @@ $materias_result = $conn->query($materias_sql);
             // Mostrar información del grupo y la materia seleccionados
             echo "<h2>Grupo: " . htmlspecialchars($grupo_info['nombre_grupo']) . " (Turno: " . htmlspecialchars($grupo_info['turno']) . ")</h2>";
             echo "<h3>Materia: " . htmlspecialchars($materia_info['nombre_materia']) . "</h3>";
-            echo "<h4>Fecha: " . htmlspecialchars($fecha) . "</h4>";
+            echo "<h4>Período: " . htmlspecialchars($fecha_inicio) . " - " . htmlspecialchars($fecha_fin) . "</h4>";
 
-            // Obtener alumnos del grupo seleccionado
+            // Obtener alumnos para el grupo seleccionado
             $alumnos_sql = "SELECT Matricula, NombreCompleto FROM alumnos WHERE id_grupo = $grupo_id";
             $alumnos_result = $conn->query($alumnos_sql);
 
             if ($alumnos_result->num_rows > 0) {
                 echo "<table>";
-                echo "<tr><th>Matrícula</th><th>Nombre Completo</th>";
-                for ($i = 1; $i <= 30; $i++) {
-                    echo "<th>" . $i . "</th>";
-                }
-                echo "</tr>";
+                echo "<tr><th>Matrícula</th><th>Nombre Completo</th><th>Calificación</th><th>Asistencia</th></tr>";
                 while($row = $alumnos_result->fetch_assoc()) {
                     echo "<tr>
                             <td>" . htmlspecialchars($row["Matricula"]) . "</td>
-                            <td>" . htmlspecialchars($row["NombreCompleto"]) . "</td>";
-                    for ($i = 1; $i <= 30; $i++) {
-                        echo "<td></td>";
-                    }
-                    echo "</tr>";
+                            <td>" . htmlspecialchars($row["NombreCompleto"]) . "</td>
+                            <td contenteditable='true'></td>
+                            <td contenteditable='true'></td>
+                          </tr>";
                 }
                 echo "</table>";
             } else {
-                echo "<p>No se encontraron alumnos para el grupo y materia seleccionados.</p>";
+                echo "<p>No se encontraron alumnos para el grupo seleccionado.</p>";
             }
         }
         ?>
@@ -182,3 +183,8 @@ $materias_result = $conn->query($materias_sql);
     <button class="print-button" onclick="window.print()">Imprimir Reporte</button>
 </body>
 </html>
+
+<?php
+// Cerrar la conexión
+$conn->close();
+?>

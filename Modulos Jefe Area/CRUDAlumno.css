@@ -1,0 +1,115 @@
+/* Estilos generales */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-image: url('https://static.vecteezy.com/system/resources/previews/003/130/795/non_2x/abstract-white-minimalist-style-background-free-vector.jpg');
+  background-size: cover;
+}
+
+h2 {
+  color: #333;
+  text-align: center;
+}
+
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  border-bottom: 2px solid #ddd; /* Aumentar el grosor de las líneas */
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+a {
+  text-decoration: none;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+a:hover {
+  background-color: #45a049;
+}
+
+.add-btn {
+  display: block;
+  width: 150px;
+  margin: 20px auto;
+  text-align: center;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.add-btn:hover {
+  background-color: #45a049;
+}
+
+.edit-btn, .delete-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  background-color: #005f7f;
+}
+
+/* Estilos adicionales para el formulario de filtrado */
+#filterForm {
+  margin-bottom: 20px;
+}
+
+#filterForm form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  margin-right: 20px;
+}
+
+.form-group label {
+  margin-right: 5px;
+}
+
+.form-group select,
+.form-group input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  padding: 8px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}

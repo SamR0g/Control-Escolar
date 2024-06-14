@@ -14,13 +14,86 @@ if (!isset($_SESSION['ID'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Alumnos</title>
-    <link rel="stylesheet" href="../css/ListadoAlumnos.css">
+    <link rel="stylesheet" href="./CRUDAlumno.css">
+    <style>
+        /* Estilos adicionales para el formulario de filtrado */
+        #filterForm {
+            margin-bottom: 20px;
+        }
+
+        #filterForm form {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #filterForm label,
+        #filterForm input,
+        #filterForm select {
+            margin: 5px;
+        }
+
+        #filterForm button {
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
     <h2>Lista de Alumnos de Primer Semestre</h2>
-    
-   <!-- Botón para redirigir al formulario existente -->
-   <button id="redirectFormBtn" class="add-btn" onclick="window.location.href='./CrearCuenta.php';">Agregar Nuevo Alumno</button>
+
+    <!-- Formulario de filtrado -->
+    <div id="filterForm">
+        <form method="GET">
+            <label for="grupo">Grupo:</label>
+            <select name="grupo" id="grupo">
+                <option value="">Todos</option>
+                <!-- Opciones de grupos obtenidas desde la base de datos -->
+                <?php
+                // Obtener grupos desde la base de datos
+                $conexion = mysqli_connect("localhost", "root", "", "controlescolar");
+                if ($conexion) {
+                    $query = "SELECT DISTINCT nombre_grupo FROM grupos";
+                    $result = mysqli_query($conexion, $query);
+                    if ($result) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value='" . $row['nombre_grupo'] . "'>" . $row['nombre_grupo'] . "</option>";
+                        }
+                        mysqli_free_result($result);
+                    }
+                    mysqli_close($conexion);
+                }
+                ?>
+            </select>
+
+            <label for="turno">Turno:</label>
+            <select name="turno" id="turno">
+                <option value="">Todos</option>
+                <!-- Opciones de turnos obtenidas desde la base de datos -->
+                <?php
+                // Obtener turnos desde la base de datos
+                $conexion = mysqli_connect("localhost", "root", "", "controlescolar");
+                if ($conexion) {
+                    $query = "SELECT DISTINCT turno FROM grupos";
+                    $result = mysqli_query($conexion, $query);
+                    if ($result) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value='" . $row['turno'] . "'>" . $row['turno'] . "</option>";
+                        }
+                        mysqli_free_result($result);
+                    }
+                    mysqli_close($conexion);
+                }
+                ?>
+            </select>
+
+            <label for="matricula">Matrícula:</label>
+            <input type="text" name="matricula" id="matricula">
+
+            <button type="submit">Filtrar</button>
+        </form>
+    </div>
+
+    <!-- Botón para redirigir al formulario existente -->
+    <button id="redirectFormBtn" class="add-btn" onclick="window.location.href='./CrearCuenta.php';">Agregar Nuevo Alumno</button>
 
     <!-- Tabla de alumnos -->
     <table>
@@ -50,7 +123,7 @@ if (!isset($_SESSION['ID'])) {
         // Establecer el conjunto de caracteres a utf8mb4
         mysqli_set_charset($conexion, "utf8mb4");
 
-        // Consulta SQL para obtener todos los alumnos de primer semestre
+        // Consulta SQL para obtener todos los alumnos de primer semestre con filtros
         $consulta = "
             SELECT 
                 a.Matricula, 
@@ -69,9 +142,41 @@ if (!isset($_SESSION['ID'])) {
                 alumnos a
             LEFT JOIN 
                 grupos g ON a.id_grupo = g.id_grupo
+            WHERE 1
         ";
 
-        $resultado = mysqli_query($conexion, $consulta);
+        // Variables para los filtros
+        $filtros = array();
+
+        // Aplicar filtro de grupo si se selecciona
+        if (!empty($_GET['grupo'])) {
+            $consulta .= " AND g.nombre_grupo = ?";
+            $filtros[] = $_GET['grupo'];
+        }
+
+        // Aplicar filtro de turno si se selecciona
+        if (!empty($_GET['turno'])) {
+            $consulta .= " AND g.turno = ?";
+            $filtros[] = $_GET['turno'];
+        }
+
+        // Aplicar filtro de matrícula si se proporciona
+        if (!empty($_GET['matricula'])) {
+            $consulta .= " AND a.Matricula = ?";
+            $filtros[] = $_GET['matricula'];
+        }
+
+        // Preparar la consulta
+        $stmt = mysqli_prepare($conexion, $consulta);
+
+        // Vincular parámetros si hay filtros
+        if (!empty($filtros)) {
+            mysqli_stmt_bind_param($stmt, str_repeat('s', count($filtros)), ...$filtros);
+        }
+
+        // Ejecutar la consulta
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
 
         // Mostrar resultados en la tabla
         if (mysqli_num_rows($resultado) > 0) {
