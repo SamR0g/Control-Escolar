@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Horarios</title>
-    <link rel="stylesheet" href="./HorarioEstilo.css">
+    <link rel="stylesheet" href="../css/HorarioEstilo.css">
 </head>
 <body>
     <div class="container">

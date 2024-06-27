@@ -54,7 +54,7 @@ $horarioResult = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información del Alumno</title>
-    <link rel="stylesheet" href="./Horario.css">
+    <link rel="stylesheet" href="../css/Horario.css">
 </head>
 <body>
     

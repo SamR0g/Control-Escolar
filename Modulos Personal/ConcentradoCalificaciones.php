@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concentrado de Calificaciones</title>
-    <link rel="stylesheet" href="./Concentrado.css">
+    <link rel="stylesheet" href="../css/Concentrado.css">
 </head>
 <body>
     <div class="container">

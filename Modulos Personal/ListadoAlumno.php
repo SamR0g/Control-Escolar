@@ -92,8 +92,8 @@ $resultado = mysqli_query($conexion, $consulta);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Alumnos</title>
-    <link rel="stylesheet" href="./ListadoAlumnos.css">
+    <title>Listado Alumnos</title>
+    <link rel="stylesheet" href="../css/ListadoAlumnos.css">
 </head>
 <body>
     <h2>Lista de Alumnos de Primer Semestre</h2>
@@ -154,7 +154,7 @@ $resultado = mysqli_query($conexion, $consulta);
                 echo "<td>";
                 echo "<div class='btn-group'>";
                 echo "<a class='edit-btn' href='./Editar.php?matricula=" . $fila['Matricula'] . "'>Editar</a>";
-                echo "<a class='delete-btn' href='./Eliminar.php?matricula=" . $fila['Matricula'] . "'>Eliminar</a>";
+                echo "<a class='delete-btn' href='./Archivar.php?matricula=" . $fila['Matricula'] . "'>Archivar</a>";
                 echo "</div>";
                 echo "</td>";
                 echo "</tr>";

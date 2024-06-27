@@ -14,7 +14,7 @@ if (!isset($_SESSION['ID'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Alumnos</title>
-    <link rel="stylesheet" href="./CRUDAlumno.css">
+    <link rel="stylesheet" href="../css/CRUDAlumno.css">
     <style>
         /* Estilos adicionales para el formulario de filtrado */
         #filterForm {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Materia</title>
-  <link rel="stylesheet" href="./CapturarMateria.css">
+  <link rel="stylesheet" href="../css/CapturarMateria.css">
 </head>
 <body>
   <div class="form-container">

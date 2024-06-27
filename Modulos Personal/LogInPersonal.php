@@ -7,7 +7,7 @@ if(isset($_SESSION['ID'])){
   
 }
 ?>
-<link rel="stylesheet" href="./LogIn.css">
+<link rel="stylesheet" href="../css/LogIn.css">
 <div class="wrapper">
     <div class="logo">
         <img src="../Imagenes/LogoBycenj.png">
@@ -27,6 +27,6 @@ if(isset($_SESSION['ID'])){
         <button class="btn mt-3" type="submit">Iniciar</button>
     </form>
     <div class="text-center fs-6">
-        <a href="#">Olvidaste tu contraseña?</a> o <a href="#"> Registrarte</a>
+        <a href="#">Olvidaste tu contraseña?</a> o <a href="../Modulos Jefe Area/CrearCuentaPersonal.php"> Registrarte</a>
     </div>
 </div>

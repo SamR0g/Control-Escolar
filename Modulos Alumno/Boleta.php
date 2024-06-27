@@ -102,7 +102,7 @@ $conn->close();
             height: 30px;
         }
     </style>
-    <link rel="stylesheet" href="./Boletac.css"> <!-- Mantenemos el enlace al archivo CSS -->
+    <link rel="stylesheet" href="../css/Boletac.css"> <!-- Mantenemos el enlace al archivo CSS -->
 </head>
 <body>
 
