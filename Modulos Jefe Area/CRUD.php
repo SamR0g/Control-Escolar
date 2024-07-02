@@ -197,7 +197,7 @@ if (!isset($_SESSION['ID'])) {
                 echo "<td>";
                 echo "<div class='btn-group'>";
                 echo "<a class='edit-btn' href='./Editar.php?matricula=" . $fila['Matricula'] . "'>Editar</a>";
-                echo "<a class='delete-btn' href='./Eliminar.php?matricula=" . $fila['Matricula'] . "'>Eliminar</a>";
+                echo "<a class='delete-btn' href='./Archivar.php?matricula=" . $fila['Matricula'] . "'>Archivar</a>";
                 echo "</div>";
                 echo "</td>";
                 echo "</tr>";
