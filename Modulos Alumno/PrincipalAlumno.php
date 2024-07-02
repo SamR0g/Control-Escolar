@@ -78,6 +78,7 @@ $conn->close();
             <a href="./Boleta.php">Boleta</a>
             <a href="./ConsultarHorario.php">Horario</a>
             <a href="./Kardex.php">Kardex</a>
+            <a href="./LlenadoInformacion.php">Completar Perfil</a>
             <a href="../php/CerrarSesionAlumno.php">Cerrar sesion</a>
         </nav>
         <label for="btn-menu">✖️</label>
