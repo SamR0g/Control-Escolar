@@ -98,7 +98,7 @@ if (!isset($_SESSION['ID'])) {
     <!-- Tabla de alumnos -->
     <table>
         <tr>
-            <th>Matrícula</th>
+        <th>Matrícula</th>
             <th>Nombre</th>
             <th>Apellido Paterno</th>
             <th>Apellido Materno</th>
@@ -110,6 +110,49 @@ if (!isset($_SESSION['ID'])) {
             <th>Periodo Escolar</th>
             <th>CURP</th>
             <th>Lugar Nacimiento</th>
+            <th>Extras</th>
+            <th>Examen Profesional</th>
+            <th>Num SeguroSocial</th>
+            <th>Nombre Padre/Tutor</th>
+            <th>Telefono Padre</th>
+            <th>Domicilio</th>
+            <th>Colonia</th>
+            <th>Municipio</th>
+            <th>Tel Emergencia</th>
+            <th>Tel Casa</th>
+            <th>Tel Celular</th>
+            <th>Correo JaliscoEdu</th>
+            <th>Correo Personal</th>
+            <th>Clave Carrera</th>
+            <th>Clave Institucion</th>
+            <th>Clave Centro Trabajo</th>
+            <th>AcuerdoN</th>
+            <th>Regular</th>
+            <th>Plan Estudios</th>
+            <th>Total Creditos</th>
+            <th>Total Horas</th>
+            <th>Estatus Inactivo</th>
+            <th>Fecha Ingreso</th>
+            <th>Nacional</th>
+            <th>Estado</th>
+            <th>Localidad Alumno</th>
+            <th>Municipio Bachillerato</th>
+            <th>Clave Bachillerato</th>
+            <th>Nombre Bachillerato</th>
+            <th>Validado Certificado</th>
+            <th>Fecha Expedicion Bachillerato</th>
+            <th>Folio Bachillerato</th>
+            <th>Promedio Bachillerato</th>
+            <th>Puntaje Examen</th>
+            <th>Edad</th>
+            <th>Ficha Examen</th>
+            <th>Talla</th>
+            <th>Sexo</th>
+            <th>Beca</th>
+            <th>Pendientes</th>
+            <th>Kardex Calificacion Acceso</th>
+            <th>Fotografia</th>
+            <th>Fecha de nacimiento</th>
             <th>Acciones</th>
         </tr>
         <?php
@@ -137,11 +180,56 @@ if (!isset($_SESSION['ID'])) {
                 g.turno AS Turno, 
                 g.periodo_escolar AS periodo_escolar, 
                 a.CURP, 
-                a.lugar_nacimiento
+                a.lugar_nacimiento,
+                ia.Extras,
+                ia.ExamenProfesional,
+                ia.NumSeguroSocial,
+                ia.NombrePadreTutor,
+                ia.TelefonoPadre,
+                ia.Domicilio,
+                ia.Colonia,
+                ia.Municipio,
+                ia.TelefonoEmergencia,
+                ia.TelefonoCasa,
+                ia.TelefonoCelular,
+                ia.CorreoJaliscoEdu,
+                ia.CorreoPersonal,
+                ia.ClaveCarrera,
+                ia.ClaveInstitucion,
+                ia.ClaveCentroTrabajo,
+                ia.AcuerdoN,
+                ia.Regular,
+                ia.PlanEstudios,
+                ia.TotalCreditos,
+                ia.TotalHoras,
+                ia.EstatusInactivo,
+                ia.FechaIngreso,
+                ia.Nacional,
+                ia.Estado,
+                ia.LocalidadAlumno,
+                ia.MunicipioBachillerato,
+                ia.ClaveBachillerato,
+                ia.NombreBachillerato,
+                ia.ValidadoCertificado,
+                ia.FechaExpedicionBachillerato,
+                ia.FolioBachillerato,
+                ia.PromedioBachillerato,
+                ia.PuntajeExamen,
+                ia.Edad,
+                ia.FichaExamen,
+                ia.Talla,
+                ia.Sexo,
+                ia.Beca,
+                ia.Pendientes,
+                ia.KardexCalificacionAcceso,
+                ia.Fotografia,
+                ia.FechaNacimiento AS FechaNacimientoAdicional
             FROM 
                 alumnos a
             LEFT JOIN 
                 grupos g ON a.id_grupo = g.id_grupo
+            LEFT JOIN 
+                informacion_adicional_alumnos ia ON a.Matricula = ia.Matricula
             WHERE 1
         ";
 
@@ -194,6 +282,49 @@ if (!isset($_SESSION['ID'])) {
                 echo "<td>" . (isset($fila['periodo_escolar']) ? $fila['periodo_escolar'] : 'N/A') . "</td>";
                 echo "<td>" . $fila['CURP'] . "</td>";
                 echo "<td>" . $fila['lugar_nacimiento'] . "</td>";
+                echo "<td>" . (isset($fila['Extras']) ? $fila['Extras'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['ExamenProfesional']) ? $fila['ExamenProfesional'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['NumSeguroSocial']) ? $fila['NumSeguroSocial'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['NombrePadreTutor']) ? $fila['NombrePadreTutor'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['TelefonoPadre']) ? $fila['TelefonoPadre'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Domicilio']) ? $fila['Domicilio'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Colonia']) ? $fila['Colonia'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Municipio']) ? $fila['Municipio'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['TelTelefonoEmergencia']) ? $fila['TelefonoEmergencia'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['TelefonoCasa']) ? $fila['TelefonoCasa'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['TelefonoCelular']) ? $fila['TelefonoCelular'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['CorreoJaliscoEdu']) ? $fila['CorreoJaliscoEdu'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['CorreoPersonal']) ? $fila['CorreoPersonal'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['ClaveCarrera']) ? $fila['ClaveCarrera'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['ClaveInstitucion']) ? $fila['ClaveInstitucion'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['ClaveCentroTrabajo']) ? $fila['ClaveCentroTrabajo'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['AcuerdoN']) ? $fila['AcuerdoN'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Regular']) ? $fila['Regular'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['PlanEstudios']) ? $fila['PlanEstudios'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['TotalCreditos']) ? $fila['TotalCreditos'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['TotalHoras']) ? $fila['TotalHoras'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['EstatusInactivo']) ? $fila['EstatusInactivo'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['FechaIngreso']) ? $fila['FechaIngreso'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Nacional']) ? $fila['Nacional'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Estado']) ? $fila['Estado'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['LocalidadAlumno']) ? $fila['LocalidadAlumno'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['MunicipioBachillerato']) ? $fila['MunicipioBachillerato'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['ClaveBachillerato']) ? $fila['ClaveBachillerato'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['NombreBachillerato']) ? $fila['NombreBachillerato'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['ValidadoCertificado']) ? $fila['ValidadoCertificado'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['FechaExpedicionBachillerato']) ? $fila['FechaExpedicionBachillerato'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['FolioBachillerato']) ? $fila['FolioBachillerato'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['PromedioBachillerato']) ? $fila['PromedioBachillerato'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['PuntajeExamen']) ? $fila['PuntajeExamen'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Edad']) ? $fila['Edad'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['FichaExamen']) ? $fila['FichaExamen'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Talla']) ? $fila['Talla'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Sexo']) ? $fila['Sexo'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Beca']) ? $fila['Beca'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Pendientes']) ? $fila['Pendientes'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['KardexCalificacionAcceso']) ? $fila['KardexCalificacionAcceso'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['Fotografia']) ? $fila['Fotografia'] : 'N/A') . "</td>";
+                echo "<td>" . (isset($fila['FechaNacimiento']) ? $fila['FechaNacimiento'] : 'N/A') . "</td>";
                 echo "<td>";
                 echo "<div class='btn-group'>";
                 echo "<a class='edit-btn' href='./Editar.php?matricula=" . $fila['Matricula'] . "'>Editar</a>";
