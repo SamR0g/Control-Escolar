@@ -76,6 +76,7 @@ $conn->close();
             <a href="./FormatoAsistencia.php">Formato Asistencia</a>
             <a href="./ListadoAlumno.php">Listado Alumnos</a>
             <a href="./FormatoEvaluacion.php">Formato Evaluacion</a>
+            <a href="./Reportes.php">Reportes</a>
             <a href="../php/CerrarSesionPersonal.php">Cerrar Sesion</a>
             
 
